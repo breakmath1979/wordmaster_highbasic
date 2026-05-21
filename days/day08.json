@@ -1,0 +1,303 @@
+{
+  "day": "DAY08",
+  "words": [
+    {
+      "word": "assign",
+      "pos": "v.",
+      "meaning": "임명하다, 맡기다, 지정하다",
+      "example": "They assigned me the job of picking up all the garbage.",
+      "blankAnswer": "assigned",
+      "derivatives": [
+        "assignment",
+        "assigned"
+      ],
+      "synonyms": [
+        "allocate",
+        "designate"
+      ],
+      "antonyms": [
+        "withdraw",
+        "dismiss"
+      ],
+      "spellingDistractors": [
+        "asign",
+        "assgin",
+        "assing",
+        "asignn"
+      ]
+    },
+    {
+      "word": "theory",
+      "pos": "n.",
+      "meaning": "이론, 학설",
+      "example": "Science leaps forward when contradictions pile up and lead to giving up a dominant theory.",
+      "blankAnswer": "theory",
+      "derivatives": [
+        "theoretical",
+        "theoretically"
+      ],
+      "synonyms": [
+        "hypothesis",
+        "principle"
+      ],
+      "antonyms": [
+        "fact",
+        "practice"
+      ],
+      "spellingDistractors": [
+        "thery",
+        "thoery",
+        "theary",
+        "teory"
+      ]
+    },
+    {
+      "word": "enable",
+      "pos": "v.",
+      "meaning": "~할 수 있게 하다, 가능하게 하다",
+      "example": "Arranging things will enable you to avoid costly and dangerous mistakes.",
+      "blankAnswer": "enable",
+      "derivatives": [
+        "able",
+        "unable",
+        "enablement"
+      ],
+      "synonyms": [
+        "allow",
+        "make possible"
+      ],
+      "antonyms": [
+        "prevent",
+        "disable"
+      ],
+      "spellingDistractors": [
+        "enabel",
+        "eneble",
+        "unable",
+        "disable"
+      ]
+    },
+    {
+      "word": "escape",
+      "pos": "v./n.",
+      "meaning": "벗어나다, 탈출하다; 탈출, 도망",
+      "example": "She escaped Norway during the German occupation.",
+      "blankAnswer": "escaped",
+      "derivatives": [
+        "escapee",
+        "escapism"
+      ],
+      "synonyms": [
+        "flee",
+        "get away"
+      ],
+      "antonyms": [
+        "remain",
+        "be caught"
+      ],
+      "spellingDistractors": [
+        "escpae",
+        "esccape",
+        "escap",
+        "ecscape"
+      ]
+    },
+    {
+      "word": "innovate",
+      "pos": "v.",
+      "meaning": "혁신하다, 쇄신하다",
+      "example": "We must strengthen our ability to innovate and create new products.",
+      "blankAnswer": "innovate",
+      "derivatives": [
+        "innovation",
+        "innovator",
+        "innovative"
+      ],
+      "synonyms": [
+        "create anew",
+        "reform"
+      ],
+      "antonyms": [
+        "imitate"
+      ],
+      "spellingDistractors": [
+        "inovate",
+        "inovvation",
+        "innvovate",
+        "immitate"
+      ]
+    },
+    {
+      "word": "insight",
+      "pos": "n.",
+      "meaning": "통찰력, 이해",
+      "example": "We can gain insight through both myths and scientific explanations.",
+      "blankAnswer": "insight",
+      "derivatives": [
+        "insightful"
+      ],
+      "synonyms": [
+        "understanding",
+        "perception"
+      ],
+      "antonyms": [
+        "confusion",
+        "ignorance"
+      ],
+      "spellingDistractors": [
+        "insite",
+        "incite",
+        "insighte",
+        "inside"
+      ]
+    },
+    {
+      "word": "insurance",
+      "pos": "n.",
+      "meaning": "보험",
+      "example": "An insurance company might refuse to issue insurance to high-risk drivers.",
+      "blankAnswer": "insurance",
+      "derivatives": [
+        "insured",
+        "insurer"
+      ],
+      "synonyms": [
+        "coverage",
+        "protection"
+      ],
+      "antonyms": [
+        "risk without protection"
+      ],
+      "spellingDistractors": [
+        "insurence",
+        "insureance",
+        "insurerance",
+        "insured"
+      ]
+    },
+    {
+      "word": "infection",
+      "pos": "n.",
+      "meaning": "감염, 전염",
+      "example": "You will learn how to help prevent infection while you are in the hospital.",
+      "blankAnswer": "infection",
+      "derivatives": [
+        "infect",
+        "infectious",
+        "infected"
+      ],
+      "synonyms": [
+        "contamination"
+      ],
+      "antonyms": [
+        "prevention",
+        "sterility"
+      ],
+      "spellingDistractors": [
+        "infecton",
+        "infeccion",
+        "infectious",
+        "infected"
+      ]
+    },
+    {
+      "word": "celebrate",
+      "pos": "v.",
+      "meaning": "기념하다, 축하하다, 찬양하다",
+      "example": "An escaped frog celebrated his miraculous freedom.",
+      "blankAnswer": "celebrated",
+      "derivatives": [
+        "celebration",
+        "celebrity",
+        "celebrated"
+      ],
+      "synonyms": [
+        "commemorate",
+        "congratulate"
+      ],
+      "antonyms": [
+        "mourn"
+      ],
+      "spellingDistractors": [
+        "celabrate",
+        "celeberate",
+        "celebreate",
+        "celebration"
+      ]
+    },
+    {
+      "word": "disaster",
+      "pos": "n.",
+      "meaning": "재난, 재앙",
+      "example": "The government was responsible for allowing the disaster to occur.",
+      "blankAnswer": "disaster",
+      "derivatives": [
+        "disastrous"
+      ],
+      "synonyms": [
+        "catastrophe",
+        "calamity"
+      ],
+      "antonyms": [
+        "blessing",
+        "success"
+      ],
+      "spellingDistractors": [
+        "disater",
+        "disastrous",
+        "diasaster",
+        "dissaster"
+      ]
+    },
+    {
+      "word": "household",
+      "pos": "n./adj.",
+      "meaning": "가족, 가정; 가정의",
+      "example": "Mined metal was rarely used in the manufacture of household utensils.",
+      "blankAnswer": "household",
+      "derivatives": [
+        "housework",
+        "householder"
+      ],
+      "synonyms": [
+        "family",
+        "domestic"
+      ],
+      "antonyms": [
+        "public",
+        "industrial"
+      ],
+      "spellingDistractors": [
+        "househould",
+        "houshold",
+        "housework",
+        "householder"
+      ]
+    },
+    {
+      "word": "transfer",
+      "pos": "v./n.",
+      "meaning": "옮기다, 갈아타다; 이동, 이전, 환승",
+      "example": "The tasks involved are sowing seeds outside and transferring vegetable plants.",
+      "blankAnswer": "transferring",
+      "derivatives": [
+        "transmission",
+        "transferable"
+      ],
+      "synonyms": [
+        "move",
+        "transport"
+      ],
+      "antonyms": [
+        "keep",
+        "retain"
+      ],
+      "spellingDistractors": [
+        "tranfer",
+        "trasfer",
+        "transmission",
+        "transferable"
+      ]
+    }
+  ]
+}
