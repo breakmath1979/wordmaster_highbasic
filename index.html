@@ -1,96 +1,601 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>다현이 10분 단어 실험실 v2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다현이 Word Master AI 10분 완전마스터</title>
 <style>
-:root{--bg:#eef7ff;--card:#fff;--ink:#172434;--muted:#667789;--line:#d8e5f2;--blue:#3f7cff;--mint:#19c7b6;--good:#16a66a;--bad:#e84f61;--yellow:#ffb020;--soft:#f6fbff;--shadow:0 14px 34px rgba(40,90,150,.14)}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#edf7ff,#fff7fb);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
-.wrap{max-width:1240px;margin:0 auto;padding:16px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.title{display:flex;gap:12px;align-items:center}.robot{width:60px;height:60px;border-radius:22px;background:radial-gradient(circle at 32% 24%,#fff 0 11%,#8ee8ff 12% 32%,#3f7cff 33%);box-shadow:var(--shadow);position:relative}.robot:before,.robot:after{content:"";position:absolute;top:25px;width:7px;height:7px;background:#122b46;border-radius:50%}.robot:before{left:18px}.robot:after{right:18px}.robot span{position:absolute;left:20px;bottom:13px;width:20px;height:4px;background:#122b46;border-radius:8px}h1{margin:0;font-size:25px}.sub{font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:230px 1fr 320px;gap:14px}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:16px}.menu button,.btn{border:1px solid var(--line);border-radius:15px;padding:11px 13px;background:var(--soft);font-weight:800;cursor:pointer;color:var(--ink)}.menu button{display:block;width:100%;margin:8px 0;text-align:left}.menu button.active,.btn.primary{background:linear-gradient(135deg,var(--blue),#65a4ff);color:white;border:0}.btn.big{font-size:16px;padding:14px 17px}.btn.good{background:#ecfff6;color:#057548}.btn.warn{background:#fff8e9;color:#9b6100}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.section{display:none}.section.active{display:block}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}.mission{background:linear-gradient(135deg,#fff,#effaff);border:1px solid var(--line);border-radius:20px;padding:17px}.talk{background:#102a43;color:#fff;border-radius:20px;padding:16px;line-height:1.6}.talk .hi{color:#95fff0;font-weight:900}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.stat{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:12px}.num{font-size:24px;font-weight:950}.lab{font-size:12px;color:var(--muted)}.bar{height:12px;background:#e8eff7;border-radius:99px;overflow:hidden}.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--blue))}.word{font-size:44px;font-weight:950;margin:6px 0}.part{display:inline-block;background:#eaf2ff;color:#2455c8;border-radius:999px;padding:4px 9px;font-size:13px;font-weight:900}.meaning{font-size:21px;font-weight:850;margin:8px 0}.example{background:#f8fcff;border:1px solid var(--line);border-radius:16px;padding:13px;line-height:1.6;margin:10px 0}.choices{display:grid;gap:8px;margin-top:12px}.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;cursor:pointer;text-align:left;font-weight:800}.choice.correct{border-color:var(--good);background:#ecfff6}.choice.wrong{border-color:var(--bad);background:#fff0f2}.pill{display:inline-block;border:1px solid var(--line);background:#edf8ff;border-radius:999px;padding:5px 9px;margin:3px;font-size:12px}.muted{color:var(--muted)}.goodText{color:var(--good);font-weight:900}.badText{color:var(--bad);font-weight:900}.list{max-height:430px;overflow:auto}.item{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:9px 0}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff;font:inherit}textarea{min-height:230px}.timer{font-size:23px;font-weight:950}.audioBox{border:1px solid var(--line);background:#fbfdff;border-radius:16px;padding:12px;margin-top:10px}.footer{font-size:12px;color:var(--muted);line-height:1.55;margin-top:12px}@media(max-width:980px){.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+:root {
+  --bg:#f5f7fb; --card:#ffffff; --ink:#172033; --muted:#667085; --line:#d9e2f2;
+  --primary:#315cff; --primary2:#eaf0ff; --good:#14a36f; --bad:#e24d4d; --warn:#f59e0b;
+  --soft:#f8fafc; --shadow:0 12px 30px rgba(20,35,70,.10);
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:linear-gradient(180deg,#f8fbff,#eef3fb); color:var(--ink); }
+.wrap { max-width:1180px; margin:0 auto; padding:16px; }
+.header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+.brand { display:flex; align-items:center; gap:12px; }
+.robot { width:58px; height:58px; border-radius:20px; background:linear-gradient(145deg,#eaf1ff,#ffffff); display:grid; place-items:center; font-size:34px; box-shadow:var(--shadow); }
+h1 { margin:0; font-size:22px; letter-spacing:-.4px; }
+.sub { color:var(--muted); font-size:13px; margin-top:3px; }
+.timer { background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow); padding:10px 14px; min-width:145px; text-align:center; }
+.timer .time { font-size:22px; font-weight:900; }
+.timer .small { font-size:12px; color:var(--muted); }
+.grid { display:grid; grid-template-columns:275px 1fr 320px; gap:12px; align-items:start; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); padding:15px; }
+.card h2 { margin:0 0 10px; font-size:16px; }
+.btn { width:100%; border:0; border-radius:16px; padding:12px 13px; margin:5px 0; cursor:pointer; font-weight:800; background:var(--primary2); color:#1f3fae; }
+.btn.primary { background:var(--primary); color:#fff; font-size:16px; }
+.btn.good { background:#eafaf3; color:#08764e; }
+.btn.warn { background:#fff7e8; color:#9a6200; }
+.btn.gray { background:#f1f5f9; color:#334155; }
+.btn.red { background:#fff0f0; color:#b42318; }
+.btn.inline { width:auto; padding:10px 12px; margin:4px; }
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+.stat { background:var(--soft); border:1px solid var(--line); border-radius:16px; padding:10px; }
+.label { color:var(--muted); font-size:12px; }
+.num { font-size:23px; font-weight:900; margin-top:3px; }
+.progressbar { width:100%; height:10px; background:#e7edf7; border-radius:999px; overflow:hidden; margin:8px 0 2px; }
+.progressbar span { display:block; height:100%; width:0%; background:linear-gradient(90deg,#315cff,#14a36f); border-radius:999px; transition:width .3s; }
+.mainbox { min-height:555px; display:flex; flex-direction:column; }
+.robotmsg { background:var(--primary2); border:1px solid #d5e1ff; border-radius:18px; padding:12px; line-height:1.55; margin-bottom:10px; }
+.stage { color:#315cff; font-weight:900; font-size:13px; margin-bottom:6px; }
+.word { font-size:44px; line-height:1.05; font-weight:950; letter-spacing:-.7px; margin:8px 0; }
+.meaning { font-size:22px; font-weight:850; margin:8px 0 12px; }
+.example { background:#f8fafc; border:1px solid var(--line); border-radius:16px; padding:12px; line-height:1.65; margin:10px 0; }
+.small { font-size:13px; color:var(--muted); line-height:1.5; }
+.pills { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+.pill { border:1px solid var(--line); background:#f6f8fc; color:#334155; padding:6px 9px; border-radius:999px; font-size:12px; }
+.choices { display:grid; gap:8px; margin:12px 0; }
+.choice { width:100%; text-align:left; background:#fff; border:1px solid var(--line); border-radius:16px; padding:13px; font-size:16px; cursor:pointer; }
+.choice:hover { border-color:#9db1ff; background:#f8faff; }
+.choice.correct { border-color:#14a36f; background:#eafaf3; color:#08764e; }
+.choice.wrong { border-color:#e24d4d; background:#fff0f0; color:#b42318; }
+.feedback { border-radius:16px; padding:12px; margin:10px 0; line-height:1.55; display:none; }
+.feedback.good { display:block; background:#ecfdf3; border:1px solid #bdebd3; color:#086c49; }
+.feedback.bad { display:block; background:#fff2f2; border:1px solid #ffd0d0; color:#a73535; }
+.inputrow { display:flex; gap:8px; align-items:center; margin:12px 0; }
+.inputrow input, select, textarea { width:100%; border:1px solid var(--line); border-radius:14px; padding:12px; font-size:15px; background:#fff; }
+textarea { min-height:120px; resize:vertical; font-family:inherit; }
+.rightlist { max-height:205px; overflow:auto; padding-right:3px; }
+.item { border:1px solid var(--line); background:#f8fafc; border-radius:14px; padding:9px; margin-bottom:8px; }
+.item .topline { display:flex; justify-content:space-between; gap:8px; font-weight:800; }
+.badge { font-size:11px; padding:4px 7px; border-radius:999px; background:#eaf0ff; color:#2440a8; white-space:nowrap; }
+.badge.bad { background:#fff0f0; color:#b42318; }
+.badge.good { background:#eafaf3; color:#08764e; }
+.tabs { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 12px; }
+.tab { border:1px solid var(--line); background:#fff; border-radius:999px; padding:7px 10px; font-size:12px; cursor:pointer; }
+.tab.active { background:#172033; color:#fff; border-color:#172033; }
+.hidden { display:none; }
+.minirow { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.footerbtns { margin-top:auto; display:flex; flex-wrap:wrap; gap:8px; }
+.footerbtns .btn { flex:1; min-width:130px; }
+.copybox { position:fixed; inset:0; background:rgba(10,20,40,.35); display:none; align-items:center; justify-content:center; padding:18px; z-index:50; }
+.copybox.show { display:flex; }
+.modal { max-width:800px; width:100%; background:#fff; border-radius:24px; padding:18px; box-shadow:0 20px 80px rgba(0,0,0,.25); }
+.modal h3 { margin:0 0 10px; }
+@media (max-width:980px) { .grid { grid-template-columns:1fr; } .header { align-items:flex-start; } .timer { min-width:120px; } .word { font-size:36px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><div class="title"><div class="robot"><span></span></div><div><h1>다현이 10분 단어 실험실 v2</h1><div class="sub">뜻 보기 개선, 정답/해설 뒤 배치, 철자 집중, 단어·문장 듣기, 발음 확인</div></div></div><div class="row"><span class="timer" id="timer">10:00</span><button class="btn" id="resetToday">오늘 기록 초기화</button></div></div>
+  <div class="header">
+    <div class="brand"><div class="robot">🤖</div><div><h1>다현이 Word Master AI 10분 완전마스터</h1><div class="sub">DAY 08 · 예문, 파생어, 반의어, 철자까지 10분 압축 반복</div></div></div>
+    <div class="timer"><div class="time" id="timer">10:00</div><div class="small" id="timerLabel">대기 중</div></div>
+  </div>
+
   <div class="grid">
-    <aside class="card menu">
-      <button class="active" data-sec="home">오늘 10분 미션</button>
-      <button data-sec="learn">단어 카드</button>
-      <button data-sec="test">빠른 테스트</button>
-      <button data-sec="spell">철자 집중실</button>
-      <button data-sec="speak">발음 실험실</button>
-      <button data-sec="weak">오답/약점</button>
-      <button data-sec="blank">사용자 괄호</button>
-      <button data-sec="export">TXT 시험지/진도</button>
-      <div class="footer">진도는 브라우저에 자동 저장됩니다. ZIP을 GitHub Pages에 올리면 그대로 실행됩니다.</div>
-    </aside>
-    <main class="card">
-      <section id="home" class="section active">
-        <div class="hero"><div class="mission"><h2>오늘의 10분 미션</h2><p class="muted">새 단어 5개 + 약점 5개. 틀린 유형은 내일 더 많이 나오고, 철자·발음까지 통과해야 완전마스터가 됩니다.</p><div class="stats"><div class="stat"><div class="num" id="todayNew">5</div><div class="lab">새 단어</div></div><div class="stat"><div class="num" id="todayReview">5</div><div class="lab">약점 복습</div></div><div class="stat"><div class="num" id="todayScore">0</div><div class="lab">오늘 실력점수</div></div><div class="stat"><div class="num" id="masteredCount">0</div><div class="lab">완전마스터</div></div></div><div class="row"><button class="btn big primary" id="startMission">10분 미션 시작</button><button class="btn big" id="recalcPlan">추천 다시 계산</button></div></div><div class="talk" id="robotHome"></div></div><h3>실력 성장</h3><div class="bar"><div id="growthBar"></div></div><p id="growthText" class="muted"></p></section>
-      <section id="learn" class="section"><div class="row"><button class="btn" id="prevWord">이전</button><button class="btn" id="nextWord">다음</button><select id="wordSelect"></select><button class="btn" id="favBtn">별표</button></div><div id="wordCard"></div></section>
-      <section id="test" class="section"><h2>빠른 테스트</h2><div class="row"><select id="testType"><option value="mixed">혼합</option><option value="meaning">뜻</option><option value="blank">예문 괄호</option><option value="related">파생어/관련어</option><option value="spelling">철자</option><option value="listening">듣고 고르기</option></select><button class="btn big primary" id="newQuestion">문제 시작</button></div><div id="questionBox" style="margin-top:14px"></div></section>
-      <section id="spell" class="section"><h2>철자 집중실</h2><p class="muted">소리를 듣고 직접 입력합니다. 틀린 철자는 다음 미션에서 자동 반복됩니다.</p><div class="row"><button class="btn big primary" id="startSpell">철자 문제 시작</button><button class="btn" id="listenSpellWord">단어 듣기</button></div><div id="spellBox"></div></section>
-      <section id="speak" class="section"><h2>발음 실험실</h2><p class="muted">단어와 예문을 듣고 따라 말합니다. 브라우저가 음성 인식을 지원하면 발음 결과를 비교합니다.</p><div class="row"><select id="speakSelect"></select><button class="btn" id="speakWordBtn">단어 듣기</button><button class="btn" id="speakSentenceBtn">문장 듣기</button><button class="btn big primary" id="recordWordBtn">내 발음 확인</button></div><div id="speakBox" class="audioBox"></div></section>
-      <section id="weak" class="section"><h2>오답/약점 실험실</h2><p id="weakSummary" class="muted"></p><div id="weakList" class="list"></div></section>
-      <section id="blank" class="section"><h2>사용자 괄호 지정</h2><p class="muted">예문에서 헷갈리는 단어나 표현을 직접 괄호 문제로 저장합니다.</p><select id="blankWordSelect"></select><div id="blankExample" class="example"></div><input id="blankTarget" placeholder="괄호로 만들 단어 또는 표현 입력"><button class="btn big primary" id="saveBlank">괄호 문제 저장</button><div id="blankSaved" class="muted"></div></section>
-      <section id="export" class="section"><h2>약점 시험지 TXT / 진도</h2><div class="row"><button class="btn big primary" id="downloadWeakTxt">약점 시험지 TXT 만들기</button><button class="btn big" id="downloadProgress">진도 JSON 내보내기</button><label class="btn big">진도 JSON 불러오기<input type="file" id="importProgress" accept=".json" style="display:none"></label></div><p class="muted">TXT는 문제와 보기를 먼저 모으고, 정답 및 해설은 맨 뒤에 따로 붙습니다.</p><textarea id="txtPreview"></textarea></section>
-    </main>
-    <aside class="card"><h3>닥터 워드봇 분석</h3><div id="coach"></div><h3>오늘 반복 처방</h3><div id="recommend"></div><h3>Day 08 현황</h3><div id="sideStats"></div></aside>
+    <div class="card">
+      <h2>오늘 할 일</h2>
+      <button class="btn primary" onclick="startMission('ai10')">10분 AI 미션 시작</button>
+      <button class="btn good" onclick="startMission('weak5')">틀린 것만 5분 복습</button>
+      <button class="btn warn" onclick="makeWeakTxt()">약점 시험지 TXT</button>
+      <button class="btn gray" onclick="makeChatGPTPrompt()">ChatGPT 고급훈련 프롬프트</button>
+      <button class="btn gray" onclick="toggleCustomBlank()">사용자 괄호 추가</button>
+      <button class="btn red" onclick="resetTodayOnly()">오늘 기록 초기화</button>
+      <div class="stats">
+        <div class="stat"><div class="label">오늘 실력 상승</div><div class="num" id="todayGain">+0</div></div>
+        <div class="stat"><div class="label">전체 실력</div><div class="num" id="skillScore">0</div></div>
+        <div class="stat"><div class="label">완전마스터</div><div class="num" id="masteredCount">0</div></div>
+        <div class="stat"><div class="label">약점 단어</div><div class="num" id="weakCount">0</div></div>
+      </div>
+      <div class="progressbar"><span id="skillBar"></span></div>
+      <div class="small" id="dailySummary">오늘 10분 미션을 시작하세요.</div>
+    </div>
+
+    <div class="card mainbox">
+      <div class="robotmsg" id="robotMsg">다현 연구원, 오늘은 많이 하지 말고 정확하게 10분만 해요. 앱이 약한 단어를 먼저 골라 줄게요.</div>
+      <div id="studyArea"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="footerbtns">
+        <button class="btn gray" onclick="showDashboard()">현황 보기</button>
+        <button class="btn gray" onclick="nextTask()">다음 문제</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>AI 반복 처방</h2>
+      <div class="tabs">
+        <button class="tab active" onclick="setRightTab('weak')" id="tabWeak">약점</button>
+        <button class="tab" onclick="setRightTab('growth')" id="tabGrowth">성장</button>
+        <button class="tab" onclick="setRightTab('data')" id="tabData">데이터</button>
+      </div>
+      <div id="rightPanel" class="rightlist"></div>
+    </div>
   </div>
 </div>
+
+<div class="copybox" id="modalBox">
+  <div class="modal">
+    <h3 id="modalTitle">자료</h3>
+    <textarea id="modalText"></textarea>
+    <div class="minirow">
+      <button class="btn inline primary" onclick="copyModalText()">복사</button>
+      <button class="btn inline gray" onclick="downloadModalText()">TXT 다운로드</button>
+      <button class="btn inline red" onclick="closeModal()">닫기</button>
+    </div>
+    <div class="small" id="modalHint"></div>
+  </div>
+</div>
+
 <script>
-const DATA_URL='data/wordmaster_basic_day08_10min_robot.json';
-const LS='wm_basic_robot_day08_progress_v2';
-const LS_BLANK='wm_basic_robot_day08_custom_blanks_v2';
-let DATA=null, WORDS=[], progress={}, customBlanks={}, current=0, mission=[], qState=null, remain=600, timerInt=null;
-const $=id=>document.getElementById(id); const mark=['①','②','③','④','⑤']; const today=()=>new Date().toISOString().slice(0,10);
-function cleanText(s){return String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim()}
-function isBadChoice(s){s=String(s||'').trim(); return !s||/^(n\.|v\.|adj\.|adv\.|prep\.|conj\.|pron\.|interj\.|v\.\/n\.|n\.\/v\.)$/i.test(s)||s.length<2}
-function baseProgress(){return {days:{},words:{}}}
-function wp(id){if(!progress.words[id]) progress.words[id]={seen:0,correct:0,wrong:0,favorite:false,mastered:false,typeCorrect:{meaning:0,blank:0,related:0,spelling:0,listening:0,speaking:0},typeWrong:{meaning:0,blank:0,related:0,spelling:0,listening:0,speaking:0},last:null}; return progress.words[id]}
-function loadLocal(){progress=JSON.parse(localStorage.getItem(LS)||'null')||baseProgress(); customBlanks=JSON.parse(localStorage.getItem(LS_BLANK)||'{}')}
-function saveLocal(){localStorage.setItem(LS,JSON.stringify(progress));localStorage.setItem(LS_BLANK,JSON.stringify(customBlanks))}
-function dayRec(){let d=today(); if(!progress.days[d]) progress.days[d]={correct:0,wrong:0,done:0,score:0,started:false}; return progress.days[d]}
-function allExamples(w){let out=[];(w.senses||[]).forEach(s=>(s.examples||[]).forEach(e=>out.push(e)));return out}
-function primaryExample(w){return allExamples(w)[0]||{en:'',ko:'',blanks:[]}}
-function relatedItems(w){let arr=[];(w.senses||[]).forEach(s=>{(s.derivatives||[]).forEach(x=>arr.push(x.word||x));(s.antonyms||[]).forEach(x=>arr.push(x.word||x));(s.synonyms_or_related||[]).forEach(x=>arr.push(x.word||x));(s.collocations||[]).forEach(x=>arr.push(x.phrase||x));});return [...new Set(arr.filter(x=>!isBadChoice(x)))]}
-function shuffle(a){return [...a].sort(()=>Math.random()-0.5)}
-function weaknessScore(w){let p=wp(w.id); let s=p.wrong*4+(p.favorite?2:0); ['meaning','blank','related','spelling','listening','speaking'].forEach(k=>{s+=(p.typeWrong[k]||0)*3; if((p.typeCorrect[k]||0)===0)s+=1}); s-=Math.min(p.correct,6); if(p.mastered)s=0; return Math.max(0,s)}
-function updateMastery(w){let p=wp(w.id); p.mastered=(p.typeCorrect.meaning>=2 && p.typeCorrect.blank>=1 && p.typeCorrect.related>=1 && p.typeCorrect.spelling>=2 && p.typeCorrect.listening>=1 && p.typeCorrect.speaking>=1 && p.wrong===0) || (p.typeCorrect.meaning>=3 && p.typeCorrect.blank>=2 && p.typeCorrect.related>=1 && p.typeCorrect.spelling>=2 && p.correct>=10 && p.wrong<=1)}
-function selectMission(){let weak=WORDS.map(w=>({w,score:weaknessScore(w)})).sort((a,b)=>b.score-a.score).filter(x=>x.score>0).slice(0,5).map(x=>x.w); let fresh=WORDS.filter(w=>wp(w.id).seen===0).slice(0,5); mission=[...new Map([...weak,...fresh].map(w=>[w.id,w])).values()].slice(0,10); if(mission.length<10) mission=[...new Map([...mission,...WORDS].map(w=>[w.id,w])).values()].slice(0,10); return mission}
-function say(text,rate=0.82){ if(!('speechSynthesis' in window)){alert('이 브라우저는 음성 듣기를 지원하지 않습니다.');return;} speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=rate; u.pitch=1; speechSynthesis.speak(u); }
-function normalizeSpeech(s){return String(s||'').toLowerCase().replace(/[^a-z ]/g,'').replace(/\s+/g,' ').trim()}
-function recordType(w,type,ok){let p=wp(w.id); p.seen++; p.last=today(); let d=dayRec(); if(ok){p.correct++;p.typeCorrect[type]=(p.typeCorrect[type]||0)+1;d.correct++;d.score+= type==='spelling'||type==='speaking'?3:2}else{p.wrong++;p.typeWrong[type]=(p.typeWrong[type]||0)+1;d.wrong++;d.score-=1} updateMastery(w); saveLocal(); renderAll()}
-function renderAll(){selectMission(); let d=dayRec(); $('todayNew').textContent=mission.filter(w=>wp(w.id).seen===0).length; $('todayReview').textContent=mission.filter(w=>wp(w.id).seen>0).length; $('todayScore').textContent=d.score; let mastered=WORDS.filter(w=>wp(w.id).mastered).length; $('masteredCount').textContent=mastered; $('growthBar').style.width=Math.min(100,Math.round(mastered/WORDS.length*100))+'%'; $('growthText').textContent=`완전마스터 ${mastered}/${WORDS.length}. 오늘 점수 ${d.score}. 철자와 발음까지 통과한 단어가 진짜 마스터입니다.`; $('robotHome').innerHTML=`<span class="hi">다현 연구원!</span><br>오늘은 10분만 집중합니다.<br>1단계 듣기, 2단계 뜻, 3단계 예문 괄호, 4단계 철자, 5단계 발음 확인 순서로 가면 가장 빠르게 쌓입니다.`; fillSelects(); renderWord(); renderSide(); renderWeak(); renderBlankExample(); renderSpeakBox(); }
-function fillSelects(){let opts=WORDS.map((w,i)=>`<option value="${i}">${String(w.order).padStart(2,'0')}. ${w.headword}</option>`).join(''); ['wordSelect','blankWordSelect','speakSelect'].forEach(id=>{let el=$(id); if(el && el.options.length!==WORDS.length){el.innerHTML=opts;}}); if($('wordSelect'))$('wordSelect').value=current; if($('blankWordSelect'))$('blankWordSelect').value=current; if($('speakSelect'))$('speakSelect').value=current;}
-function renderWord(){if(!WORDS.length)return; let w=WORDS[current], p=wp(w.id), ex=primaryExample(w), rel=relatedItems(w); $('wordSelect').value=current; $('favBtn').textContent=p.favorite?'별표 해제':'별표'; $('wordCard').innerHTML=`<div class="word">${w.headword}</div><span class="part">${w.part||''}</span><div class="meaning">${w.meaning_ko}</div><div class="row"><button class="btn good" onclick="say('${w.headword.replace(/'/g,"\\'")}')">단어 소리 듣기</button><button class="btn good" onclick="say('${(ex.en||'').replace(/'/g,"\\'")}')">문장 소리 듣기</button><button class="btn warn" onclick="current=${current};document.querySelector('[data-sec=speak]').click();renderSpeakBox()">발음 확인</button></div><div class="example"><b>예문</b><br>${ex.en}<br><span class="muted">${ex.ko}</span></div><div><b>파생어/반의어/관련표현</b><br>${rel.length?rel.map(x=>`<span class="pill">${x}</span>`).join(''):'<span class="muted">자료 없음</span>'}</div><div class="stats"><div class="stat"><div class="num">${p.correct}</div><div class="lab">정답</div></div><div class="stat"><div class="num">${p.wrong}</div><div class="lab">오답</div></div><div class="stat"><div class="num">${weaknessScore(w)}</div><div class="lab">약점점수</div></div><div class="stat"><div class="num">${p.mastered?'완료':'진행'}</div><div class="lab">마스터</div></div></div>`;}
-function renderSide(){let total=WORDS.length, mastered=WORDS.filter(w=>wp(w.id).mastered).length, seen=WORDS.filter(w=>wp(w.id).seen>0).length; $('sideStats').innerHTML=`<p>학습한 단어: ${seen}/${total}</p><p>완전마스터: <span class="goodText">${mastered}</span>/${total}</p><p>남은 단어: ${total-mastered}</p>`; let types={meaning:0,blank:0,related:0,spelling:0,listening:0,speaking:0}; WORDS.forEach(w=>{let p=wp(w.id);Object.keys(types).forEach(k=>types[k]+=p.typeWrong[k]||0)}); let worst=Object.entries(types).sort((a,b)=>b[1]-a[1])[0]; let names={meaning:'뜻',blank:'예문 괄호',related:'파생어/관련어',spelling:'철자',listening:'듣기',speaking:'발음'}; $('recommend').innerHTML= worst&&worst[1]>0 ? `<p>가장 약한 부분은 <span class="badText">${names[worst[0]]}</span>입니다.</p><p>다음 10분 미션에서 ${names[worst[0]]} 문제를 먼저 3개 반복하세요.</p>` : `<p>아직 큰 약점이 없습니다. 오늘은 새 단어 5개를 듣고 철자까지 입력하세요.</p>`; $('coach').innerHTML=`<p>보기는 같은 유형끼리만 섞습니다. 뜻 문제에 품사 표시는 보기로 나오지 않습니다.</p><p>철자 2회, 발음 1회 이상 통과해야 진짜 마스터에 가까워집니다.</p>`}
-function renderWeak(){let arr=WORDS.map(w=>({w,score:weaknessScore(w),p:wp(w.id)})).sort((a,b)=>b.score-a.score); $('weakSummary').textContent='약점점수 높은 단어부터 반복하면 10분 효율이 가장 좋습니다.'; $('weakList').innerHTML=arr.map(x=>`<div class="item"><div><b>${x.w.headword}</b> <span class="muted">${x.w.meaning_ko}</span><br><span class="muted">오답 ${x.p.wrong}, 철자오답 ${x.p.typeWrong.spelling||0}, 발음오답 ${x.p.typeWrong.speaking||0}, 마스터 ${x.p.mastered?'O':'X'}</span></div><div class="badText">${x.score}</div></div>`).join('')}
-function meaningPool(answer){return shuffle([...new Set(WORDS.map(w=>w.meaning_ko).filter(x=>!isBadChoice(x)&&x!==answer))])}
-function wordPool(answer){return shuffle([...new Set(WORDS.map(w=>w.headword).filter(x=>!isBadChoice(x)&&x!==answer))])}
-function makeChoices(answer,pool){let arr=shuffle([answer,...pool.filter(x=>x!==answer).slice(0,4)]).slice(0,5); if(!arr.includes(answer)) arr[0]=answer; return arr}
-function makeMeaningQ(w){let choices=makeChoices(w.meaning_ko, meaningPool(w.meaning_ko)); return {type:'meaning',w,question:`${w.headword}의 뜻으로 알맞은 것은?`,choices,answer:w.meaning_ko,explain:`${w.headword}는 '${w.meaning_ko}'라는 뜻입니다.`}}
-function makeBlankQ(w){let ex=primaryExample(w); let b=(ex.blanks||[])[0]; let cbs=(customBlanks[w.id]||[]); if(cbs.length)b=cbs[cbs.length-1]; if(!b)return makeMeaningQ(w); let base=(b.choices||[]).filter(x=>!isBadChoice(x)); let pool=[...base,...relatedItems(w),...wordPool(b.answer)]; let choices=makeChoices(b.answer,[...new Set(pool)]); return {type:'blank',w,question:'다음 빈칸에 알맞은 단어 또는 표현을 고르시오.',sentence:b.display,choices,answer:b.answer,explain:`예문: ${ex.en} / 해석: ${ex.ko}`}}
-function makeRelatedQ(w){let rel=relatedItems(w); if(!rel.length)return makeMeaningQ(w); let ans=rel[0]; let pool=shuffle([...new Set(WORDS.flatMap(relatedItems).filter(x=>x!==ans))]); let choices=makeChoices(ans,pool); return {type:'related',w,question:`${w.headword}와 관련 있는 파생어/반의어/표현으로 알맞은 것은?`,choices,answer:ans,explain:`${w.headword} 관련 표현: ${rel.join(', ')}`}}
-function makeSpellingQ(w){return {type:'spelling',w,question:`뜻 '${w.meaning_ko}'에 해당하는 영어 단어를 입력하시오.`,answer:w.headword,explain:`정답 철자는 ${w.headword}입니다.`}}
-function makeListeningQ(w){let choices=makeChoices(w.headword,wordPool(w.headword)); return {type:'listening',w,question:'소리를 듣고 알맞은 단어를 고르시오.',choices,answer:w.headword,explain:`들은 단어는 ${w.headword}입니다.`}}
-function makeQ(type){let pool=mission.length?mission:WORDS; let w=shuffle(pool.filter(x=>!wp(x.id).mastered))[0]||shuffle(pool)[0]; if(type==='mixed')type=shuffle(['meaning','blank','related','spelling','listening'])[0]; if(type==='meaning')return makeMeaningQ(w); if(type==='blank')return makeBlankQ(w); if(type==='related')return makeRelatedQ(w); if(type==='spelling')return makeSpellingQ(w); if(type==='listening')return makeListeningQ(w); return makeMeaningQ(w)}
-function renderQuestion(q){qState=q; let html=`<h2>문제</h2><p>${q.question}</p>`; if(q.type==='listening')html+=`<button class="btn good" onclick="say('${q.answer.replace(/'/g,"\\'")}')">소리 다시 듣기</button>`; if(q.sentence)html+=`<div class="example">${q.sentence}</div>`; if(q.type==='spelling'){html+=`<div class="row"><button class="btn good" onclick="say('${q.answer.replace(/'/g,"\\'")}')">단어 듣기</button><button class="btn good" onclick="say('${primaryExample(q.w).en.replace(/'/g,"\\'")}')">문장 듣기</button></div><input id="spellInput" placeholder="영어 철자 입력" autocomplete="off"><button class="btn big primary" onclick="checkSpelling()">정답 확인</button>`}else{html+=`<div class="choices">${q.choices.map((c,i)=>`<button class="choice" onclick="checkChoice(this,${JSON.stringify(c).replace(/"/g,'&quot;')})">${mark[i]} ${c}</button>`).join('')}</div>`} html+=`<div id="feedback" style="margin-top:12px"></div>`; $('questionBox').innerHTML=html; if(q.type==='listening')setTimeout(()=>say(q.answer),300);}
-window.checkChoice=function(btn,val){let q=qState, ok=val===q.answer; document.querySelectorAll('.choice').forEach(b=>{if(b.textContent.includes(q.answer))b.classList.add('correct')}); if(!ok)btn.classList.add('wrong'); recordType(q.w,q.type,ok); $('feedback').innerHTML=`<div class="example"><b>${ok?'정답':'오답'}</b><br>${q.explain}</div><button class="btn big primary" onclick="renderQuestion(makeQ(document.getElementById('testType').value))">다음 문제</button>`}
-window.checkSpelling=function(){let q=qState; let val=($('spellInput').value||'').trim().toLowerCase(); let ok=val===q.answer.toLowerCase(); recordType(q.w,'spelling',ok); $('feedback').innerHTML=`<div class="example"><b>${ok?'정답':'오답'}</b><br>${q.explain}<br>내가 쓴 철자: ${val||'(입력 없음)'}</div><button class="btn big primary" onclick="renderQuestion(makeQ('spelling'))">철자 다음 문제</button>`}
-function startTimer(){clearInterval(timerInt); remain=600; $('timer').textContent='10:00'; timerInt=setInterval(()=>{remain--; $('timer').textContent=String(Math.floor(remain/60)).padStart(2,'0')+':'+String(remain%60).padStart(2,'0'); if(remain<=0){clearInterval(timerInt);alert('오늘 10분 미션 완료! 오답은 내일 먼저 복습합니다.')}},1000)}
-function renderSpell(){let w=shuffle(mission.length?mission:WORDS)[0]; let q=makeSpellingQ(w); qState=q; $('spellBox').innerHTML=`<div class="example"><p>${q.question}</p><button class="btn good" onclick="say('${w.headword.replace(/'/g,"\\'")}')">단어 듣기</button><button class="btn good" onclick="say('${primaryExample(w).en.replace(/'/g,"\\'")}')">문장 듣기</button><input id="spellInput" placeholder="철자 입력"><button class="btn big primary" onclick="checkSpellingInBox()">확인</button><div id="spellFeedback"></div></div>`; setTimeout(()=>say(w.headword),300)}
-window.checkSpellingInBox=function(){let q=qState; let val=($('spellInput').value||'').trim().toLowerCase(); let ok=val===q.answer.toLowerCase(); recordType(q.w,'spelling',ok); $('spellFeedback').innerHTML=`<p class="${ok?'goodText':'badText'}">${ok?'정답':'오답'}: ${q.answer}</p><button class="btn primary" onclick="renderSpell()">다음 철자</button>`}
-function renderSpeakBox(){if(!WORDS.length)return; let idx=+$('speakSelect').value||current; current=idx; let w=WORDS[idx], ex=primaryExample(w), p=wp(w.id); $('speakBox').innerHTML=`<div class="word">${w.headword}</div><div class="meaning">${w.meaning_ko}</div><div class="example">${ex.en}<br><span class="muted">${ex.ko}</span></div><p>발음 통과: ${p.typeCorrect.speaking||0}회 / 발음 재도전: ${p.typeWrong.speaking||0}회</p><div id="speechResult" class="muted">단어 듣기 → 따라 말하기 순서로 연습하세요.</div>`}
-function startRecognition(){let idx=+$('speakSelect').value||current; let w=WORDS[idx]; const SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){$('speechResult').innerHTML='이 브라우저는 음성 인식을 지원하지 않습니다. Chrome에서 실행하면 발음 확인이 가능합니다.';return} let rec=new SR(); rec.lang='en-US'; rec.interimResults=false; rec.maxAlternatives=3; $('speechResult').innerHTML='듣고 있습니다. 단어를 또렷하게 말하세요.'; rec.onresult=e=>{let transcript=e.results[0][0].transcript; let got=normalizeSpeech(transcript), ans=normalizeSpeech(w.headword); let ok=(got===ans || got.includes(ans)); recordType(w,'speaking',ok); $('speechResult').innerHTML=`인식 결과: ${transcript}<br>목표 단어: ${w.headword}<br><span class="${ok?'goodText':'badText'}">${ok?'발음 통과':'다시 연습'}</span>`}; rec.onerror=()=>{$('speechResult').innerHTML='음성 인식이 잘 되지 않았습니다. 다시 눌러 말해보세요.'}; rec.start();}
-function renderBlankExample(){let w=WORDS[+$('blankWordSelect').value]||WORDS[current]; let ex=primaryExample(w); $('blankExample').innerHTML=`<b>${w.headword}</b><br>${ex.en}<br><span class="muted">${ex.ko}</span>`}
-function saveCustomBlank(){let idx=+$('blankWordSelect').value, w=WORDS[idx], ex=primaryExample(w), target=$('blankTarget').value.trim(); if(!target)return alert('괄호로 만들 표현을 입력하세요.'); let display=ex.en.replace(target,'(        )'); if(display===ex.en)return alert('예문 안에 같은 표현이 없습니다.'); let pool=shuffle([...relatedItems(w),...wordPool(target)]).slice(0,4); let b={blank_id:'USER-'+Date.now(),target,display,answer:target,choices:makeChoices(target,pool),blank_type:'user_defined'}; if(!customBlanks[w.id])customBlanks[w.id]=[]; customBlanks[w.id].push(b); saveLocal(); $('blankSaved').textContent=`저장 완료: ${display}`; $('blankTarget').value='';}
-function makeWeakTxt(){let arr=WORDS.map(w=>({w,score:weaknessScore(w)})).filter(x=>x.score>0&&!wp(x.w.id).mastered).sort((a,b)=>b.score-a.score).slice(0,20); if(!arr.length)arr=WORDS.slice(0,10).map(w=>({w,score:0})); let qs=[], ans=[]; arr.forEach((x,idx)=>{let q=idx%4===0?makeBlankQ(x.w):idx%4===1?makeMeaningQ(x.w):idx%4===2?makeRelatedQ(x.w):makeListeningQ(x.w); qs.push(`문제 ${idx+1}. ${q.question}`); if(q.sentence)qs.push(q.sentence); q.choices.forEach((c,i)=>qs.push(`${mark[i]} ${c}`)); qs.push(''); let ai=q.choices.indexOf(q.answer); let ex=[]; q.choices.forEach((c,i)=>{ex.push(`${i+1}번 해설 ${c===q.answer?cleanText(q.explain)+' 정답이다.':'정답이 아니다.'}`)}); ans.push(`문제 ${idx+1} 정답 ${mark[ai]} ${q.answer}`); ans.push(...ex); ans.push('');}); let lines=['Word Master BASIC Day 08 약점 시험지','학생: 다현','생성일: '+today(),'기준: 오답, 철자오답, 발음오답, 예문 괄호 미완성 단어 우선','','[문제]',...qs,'','[정답 및 해설]',...ans]; return lines.join('\n')}
-function download(name,text,type='text/plain;charset=utf-8'){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
-async function init(){loadLocal(); DATA=await fetch(DATA_URL).then(r=>r.json()); WORDS=DATA.words||[]; renderAll(); $('startMission').onclick=()=>{selectMission();startTimer();document.querySelector('[data-sec=test]').click();renderQuestion(makeQ('mixed'))}; $('recalcPlan').onclick=renderAll; $('prevWord').onclick=()=>{current=Math.max(0,current-1);renderAll()}; $('nextWord').onclick=()=>{current=Math.min(WORDS.length-1,current+1);renderAll()}; $('wordSelect').onchange=e=>{current=+e.target.value;renderAll()}; $('favBtn').onclick=()=>{let p=wp(WORDS[current].id);p.favorite=!p.favorite;saveLocal();renderAll()}; $('newQuestion').onclick=()=>renderQuestion(makeQ($('testType').value)); $('startSpell').onclick=renderSpell; $('listenSpellWord').onclick=()=>{let w=mission[0]||WORDS[current];say(w.headword)}; $('speakSelect').onchange=e=>{current=+e.target.value;renderSpeakBox()}; $('speakWordBtn').onclick=()=>say(WORDS[+$('speakSelect').value].headword); $('speakSentenceBtn').onclick=()=>say(primaryExample(WORDS[+$('speakSelect').value]).en); $('recordWordBtn').onclick=startRecognition; $('blankWordSelect').onchange=renderBlankExample; $('saveBlank').onclick=saveCustomBlank; $('downloadWeakTxt').onclick=()=>{let t=makeWeakTxt();$('txtPreview').value=t;download('Day08_다현_약점시험지_v2.txt',t)}; $('downloadProgress').onclick=()=>download('Day08_다현_진도_v2.json',JSON.stringify(progress,null,2),'application/json;charset=utf-8'); $('importProgress').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{progress=JSON.parse(r.result);saveLocal();renderAll();alert('진도 불러오기 완료')};r.readAsText(f)}; $('resetToday').onclick=()=>{if(confirm('오늘 기록만 초기화할까요?')){delete progress.days[today()];saveLocal();renderAll()}}; document.querySelectorAll('.menu button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.menu button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$(b.dataset.sec).classList.add('active'); if(b.dataset.sec==='blank')renderBlankExample(); if(b.dataset.sec==='speak')renderSpeakBox();});}
-init().catch(e=>{document.body.innerHTML='<pre>데이터를 불러오지 못했습니다. data 폴더를 함께 올려주세요.\n'+e+'</pre>'});
+const APP_DATA = {"book": "Word Master High BASIC", "day": 8, "title": "DAY 08", "student": "다현", "words": [{"id": "WMHB-D08-001", "order": 1, "word": "accurate", "part": "adj.", "meaning": "정확한, 정밀한", "example": "All that bad news is not an accurate reflection of what I really look like.", "exampleKo": "그 모든 나쁜 소식이 내가 실제로 어떤지에 대한 정확한 반영은 아니다.", "blanks": [{"id": "WMHB-D08-001-B1", "display": "All that bad news is not an (        ) reflection of what I really look like.", "target": "accurate", "answer": "accurate", "choices": ["accurate", "accuracy", "accurately", "inaccurate", "important"]}], "derivatives": ["accuracy", "accurately"], "related": ["inaccurate"], "antonyms": [], "collocations": ["accurate reflection"], "level": 1}, {"id": "WMHB-D08-002", "order": 2, "word": "precise", "part": "adj.", "meaning": "정확한, 정밀한", "example": "The detail things are precise and well-organized.", "exampleKo": "세부적인 사항들은 정확하고 체계적이다.", "blanks": [{"id": "WMHB-D08-002-B1", "display": "The detail things are (        ) and well-organized.", "target": "precise", "answer": "precise", "choices": ["precise", "precision", "precisely", "important", "accurate"]}], "derivatives": ["precision", "precisely"], "related": [], "antonyms": [], "collocations": ["precise and well-organized"], "level": 1}, {"id": "WMHB-D08-003", "order": 3, "word": "estimate", "part": "v./n.", "meaning": "추정하다, 평가하다 / 추정, 견적", "example": "You will need to make some estimate of how long you need together.", "exampleKo": "당신은 얼마나 시간이 필요한지 어느 정도 추정해야 할 것이다.", "blanks": [{"id": "WMHB-D08-003-B1", "display": "You will need to make some (        ) of how long you need together.", "target": "estimate", "answer": "estimate", "choices": ["estimate", "estimation", "important", "accurate", "comfort"]}], "derivatives": ["estimation"], "related": [], "antonyms": [], "collocations": ["make an estimate"], "level": 1}, {"id": "WMHB-D08-004", "order": 4, "word": "compete", "part": "v.", "meaning": "경쟁하다, 겨루다", "example": "Sunlight is not enough, so the plants have to compete for sunshine.", "exampleKo": "햇빛이 충분하지 않아서 식물들은 햇빛을 얻기 위해 경쟁해야 한다.", "blanks": [{"id": "WMHB-D08-004-B1", "display": "Sunlight is not enough, so the plants have to (        ) for sunshine.", "target": "compete", "answer": "compete", "choices": ["compete", "competition", "competitive", "important", "accurate"]}], "derivatives": ["competition", "competitive"], "related": [], "antonyms": [], "collocations": ["compete for"], "level": 1}, {"id": "WMHB-D08-005", "order": 5, "word": "submit", "part": "v.", "meaning": "제출하다, 굴복하다", "example": "You should not submit poems dealing with break-up, depression, and regret.", "exampleKo": "이별, 우울, 후회를 다루는 시를 제출해서는 안 된다.", "blanks": [{"id": "WMHB-D08-005-B1", "display": "You should not (        ) poems dealing with break-up, depression, and regret.", "target": "submit", "answer": "submit", "choices": ["submit", "submission", "surrender", "important", "accurate"]}], "derivatives": ["submission"], "related": ["surrender"], "antonyms": [], "collocations": ["submit poems"], "level": 1}, {"id": "WMHB-D08-006", "order": 6, "word": "grab", "part": "v.", "meaning": "붙잡다, 움켜쥐다", "example": "I saw something floating in the water next to me and grabbed it.", "exampleKo": "나는 내 옆 물에 떠 있는 것을 보았고 그것을 붙잡았다.", "blanks": [{"id": "WMHB-D08-006-B1", "display": "I saw something floating in the water next to me and (        )bed it.", "target": "grab", "answer": "grab", "choices": ["grab", "grasp", "important", "accurate", "comfort"]}], "derivatives": [], "related": ["grasp"], "antonyms": [], "collocations": ["grab it"], "level": 1}, {"id": "WMHB-D08-007", "order": 7, "word": "theory", "part": "n.", "meaning": "이론, 학설", "example": "Science leaps forward when contradictions pile up and lead to giving up a dominant theory.", "exampleKo": "모순이 쌓여 지배적인 이론을 포기하게 될 때 과학은 비약적으로 발전한다.", "blanks": [{"id": "WMHB-D08-007-B1", "display": "Science leaps forward when contradictions pile up and lead to giving up a dominant (        ).", "target": "theory", "answer": "theory", "choices": ["theory", "theoretical", "important", "accurate", "comfort"]}], "derivatives": ["theoretical"], "related": [], "antonyms": [], "collocations": ["dominant theory"], "level": 1}, {"id": "WMHB-D08-008", "order": 8, "word": "document", "part": "n./v.", "meaning": "문서, 서류 / 기록하다", "example": "Make sure you keep copies of any letters or documents that can prove the facts.", "exampleKo": "사실을 증명할 수 있는 편지나 서류의 사본을 반드시 보관하라.", "blanks": [{"id": "WMHB-D08-008-B1", "display": "Make sure you keep copies of any letters or (        )s that can prove the facts.", "target": "document", "answer": "document", "choices": ["document", "documentary", "important", "accurate", "comfort"]}], "derivatives": ["documentary"], "related": [], "antonyms": [], "collocations": ["letters or documents"], "level": 1}, {"id": "WMHB-D08-009", "order": 9, "word": "enable", "part": "v.", "meaning": "~할 수 있게 하다, 가능하게 하다", "example": "Arranging things will enable you to avoid costly and dangerous mistakes.", "exampleKo": "물건을 정리하는 것은 비싸고 위험한 실수를 피할 수 있게 해준다.", "blanks": [{"id": "WMHB-D08-009-B1", "display": "Arranging things will (        ) you to avoid costly and dangerous mistakes.", "target": "enable", "answer": "enable", "choices": ["enable", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["enable A to V"], "level": 1}, {"id": "WMHB-D08-010", "order": 10, "word": "avoid", "part": "v.", "meaning": "피하다, 막다", "example": "HUBO was able to turn the vehicle smoothly to avoid a barrier.", "exampleKo": "HUBO는 장애물을 피하기 위해 차량을 부드럽게 돌릴 수 있었다.", "blanks": [{"id": "WMHB-D08-010-B1", "display": "HUBO was able to turn the vehicle smoothly to (        ) a barrier.", "target": "avoid", "answer": "avoid", "choices": ["avoid", "avoidable", "avoidance", "important", "accurate"]}], "derivatives": ["avoidable", "avoidance"], "related": [], "antonyms": [], "collocations": ["avoid a barrier"], "level": 1}, {"id": "WMHB-D08-011", "order": 11, "word": "escape", "part": "v./n.", "meaning": "벗어나다, 탈출하다 / 탈출, 도망", "example": "She escaped Norway during the German occupation.", "exampleKo": "그녀는 독일 점령 기간 동안 노르웨이를 탈출했다.", "blanks": [{"id": "WMHB-D08-011-B1", "display": "She (        )d Norway during the German occupation.", "target": "escape", "answer": "escape", "choices": ["escape", "escapee", "flee", "important", "accurate"]}], "derivatives": ["escapee"], "related": ["flee"], "antonyms": [], "collocations": ["escape from"], "level": 1}, {"id": "WMHB-D08-012", "order": 12, "word": "innovate", "part": "v.", "meaning": "혁신하다, 쇄신하다", "example": "We must use our ability to innovate and create new products.", "exampleKo": "우리는 혁신하고 새로운 제품을 만드는 능력을 활용해야 한다.", "blanks": [{"id": "WMHB-D08-012-B1", "display": "We must use our ability to (        ) and create new products.", "target": "innovate", "answer": "innovate", "choices": ["innovate", "innovation", "innovator", "important", "accurate"]}], "derivatives": ["innovation", "innovator"], "related": [], "antonyms": [], "collocations": ["innovate and create"], "level": 1}, {"id": "WMHB-D08-013", "order": 13, "word": "insight", "part": "n.", "meaning": "통찰력, 이해", "example": "We can gain insight through both myths and scientific explanations.", "exampleKo": "우리는 신화와 과학적 설명을 통해 통찰력을 얻을 수 있다.", "blanks": [{"id": "WMHB-D08-013-B1", "display": "We can gain (        ) through both myths and scientific explanations.", "target": "insight", "answer": "insight", "choices": ["insight", "insightful", "important", "accurate", "comfort"]}], "derivatives": ["insightful"], "related": [], "antonyms": [], "collocations": ["gain insight"], "level": 1}, {"id": "WMHB-D08-014", "order": 14, "word": "insurance", "part": "n.", "meaning": "보험", "example": "An insurance company might refuse to issue insurance.", "exampleKo": "보험 회사는 보험 발급을 거절할 수도 있다.", "blanks": [{"id": "WMHB-D08-014-B1", "display": "An (        ) company might refuse to issue insurance.", "target": "insurance", "answer": "insurance", "choices": ["insurance", "insured", "important", "accurate", "comfort"]}], "derivatives": ["insured"], "related": [], "antonyms": [], "collocations": ["issue insurance"], "level": 1}, {"id": "WMHB-D08-015", "order": 15, "word": "infection", "part": "n.", "meaning": "감염, 전염", "example": "You will learn how to help prevent infection while you are in the hospital.", "exampleKo": "병원에 있는 동안 감염을 예방하는 방법을 배우게 될 것이다.", "blanks": [{"id": "WMHB-D08-015-B1", "display": "You will learn how to help prevent (        ) while you are in the hospital.", "target": "infection", "answer": "infection", "choices": ["infection", "infect", "infectious", "important", "accurate"]}], "derivatives": ["infect", "infectious"], "related": [], "antonyms": [], "collocations": ["prevent infection"], "level": 1}, {"id": "WMHB-D08-016", "order": 16, "word": "vehicle", "part": "n.", "meaning": "탈것, 운송 수단", "example": "Almost half of the oil pumped each year is used to fuel the world's motor vehicles.", "exampleKo": "매년 생산되는 석유의 거의 절반이 전 세계 자동차의 연료로 사용된다.", "blanks": [{"id": "WMHB-D08-016-B1", "display": "Almost half of the oil pumped each year is used to fuel the world's motor (        )s.", "target": "vehicle", "answer": "vehicle", "choices": ["vehicle", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["motor vehicles"], "level": 1}, {"id": "WMHB-D08-017", "order": 17, "word": "belong", "part": "v.", "meaning": "속하다, 제자리에 있다", "example": "An observer didn't know to which group each baby belonged.", "exampleKo": "관찰자는 각각의 아기가 어느 집단에 속하는지 알지 못했다.", "blanks": [{"id": "WMHB-D08-017-B1", "display": "An observer didn't know to which group each baby (        )ed.", "target": "belong", "answer": "belong", "choices": ["belong", "belongings", "important", "accurate", "comfort"]}], "derivatives": ["belongings"], "related": [], "antonyms": [], "collocations": ["belong to"], "level": 1}, {"id": "WMHB-D08-018", "order": 18, "word": "celebrate", "part": "v.", "meaning": "기념하다, 축하하다, 찬양하다", "example": "Amazed, the other frogs celebrated his miraculous freedom.", "exampleKo": "놀란 다른 개구리들은 그의 기적적인 자유를 축하했다.", "blanks": [{"id": "WMHB-D08-018-B1", "display": "Amazed, the other frogs (        )d his miraculous freedom.", "target": "celebrate", "answer": "celebrate", "choices": ["celebrate", "celebration", "celebrity", "important", "accurate"]}], "derivatives": ["celebration", "celebrity"], "related": [], "antonyms": [], "collocations": ["celebrate freedom"], "level": 1}, {"id": "WMHB-D08-019", "order": 19, "word": "demonstrate", "part": "v.", "meaning": "시범을 보이다, 증명하다, 시위하다", "example": "The leader of the town chose a day when James demonstrated his skills.", "exampleKo": "마을의 지도자는 James가 그의 기술을 증명하는 날을 정했다.", "blanks": [{"id": "WMHB-D08-019-B1", "display": "The leader of the town chose a day when James (        )d his skills.", "target": "demonstrate", "answer": "demonstrate", "choices": ["demonstrate", "demonstration", "important", "accurate", "comfort"]}], "derivatives": ["demonstration"], "related": [], "antonyms": [], "collocations": ["demonstrate skills"], "level": 1}, {"id": "WMHB-D08-020", "order": 20, "word": "disaster", "part": "n.", "meaning": "재난, 재앙", "example": "The government was responsible for allowing the disaster to occur.", "exampleKo": "정부는 그 재난이 발생하도록 허용한 책임이 있었다.", "blanks": [{"id": "WMHB-D08-020-B1", "display": "The government was responsible for allowing the (        ) to occur.", "target": "disaster", "answer": "disaster", "choices": ["disaster", "disastrous", "important", "accurate", "comfort"]}], "derivatives": ["disastrous"], "related": [], "antonyms": [], "collocations": ["disaster to occur"], "level": 1}, {"id": "WMHB-D08-021", "order": 21, "word": "economic", "part": "adj.", "meaning": "경제의, 경제적인", "example": "Chinese immigrants contributed to the economic success of the West.", "exampleKo": "중국 이민자들은 서부 지역의 경제적 성공에 이바지했다.", "blanks": [{"id": "WMHB-D08-021-B1", "display": "Chinese immigrants contributed to the (        ) success of the West.", "target": "economic", "answer": "economic", "choices": ["economic", "economy", "economics", "important", "accurate"]}], "derivatives": ["economy", "economics"], "related": [], "antonyms": [], "collocations": ["economic success"], "level": 1}, {"id": "WMHB-D08-022", "order": 22, "word": "household", "part": "n./adj.", "meaning": "가족, 가정 / 가정의", "example": "Mined metal was rarely used in the manufacture of household utensils.", "exampleKo": "채굴된 금속은 가정용 도구 제작에 거의 사용되지 않았다.", "blanks": [{"id": "WMHB-D08-022-B1", "display": "Mined metal was rarely used in the manufacture of (        ) utensils.", "target": "household", "answer": "household", "choices": ["household", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["household utensils"], "level": 1}, {"id": "WMHB-D08-023", "order": 23, "word": "assign", "part": "v.", "meaning": "임명하다, 임무를 맡기다, 지정하다", "example": "They assigned me the job of picking up all the garbage.", "exampleKo": "그들은 나에게 모든 쓰레기를 줍는 일을 맡겼다.", "blanks": [{"id": "WMHB-D08-023-B1", "display": "They (        )ed me the job of picking up all the garbage.", "target": "assign", "answer": "assign", "choices": ["assign", "assignment", "allocate", "designate", "important"]}], "derivatives": ["assignment"], "related": ["allocate", "designate"], "antonyms": [], "collocations": ["assign A to B"], "level": 1}, {"id": "WMHB-D08-024", "order": 24, "word": "transfer", "part": "v./n.", "meaning": "옮기다, 건너다 / 이동, 이전, 환승", "example": "The kind of tasks involved are sowing seeds outside and transferring vegetable plants.", "exampleKo": "관련된 일에는 밖에 씨를 뿌리고 채소 식물을 옮기는 일이 포함된다.", "blanks": [{"id": "WMHB-D08-024-B1", "display": "The kind of tasks involved are sowing seeds outside and (        )ring vegetable plants.", "target": "transfer", "answer": "transfer", "choices": ["transfer", "transmission", "transport", "important", "accurate"]}], "derivatives": ["transmission"], "related": ["transport"], "antonyms": [], "collocations": ["transfer plants"], "level": 1}, {"id": "WMHB-D08-025", "order": 25, "word": "preserve", "part": "v.", "meaning": "보존하다, 유지하다", "example": "We know about dinosaurs because their bones have been preserved.", "exampleKo": "공룡의 뼈가 보존되었기 때문에 우리는 공룡에 대해 알고 있다.", "blanks": [{"id": "WMHB-D08-025-B1", "display": "We know about dinosaurs because their bones have been (        )d.", "target": "preserve", "answer": "preserve", "choices": ["preserve", "preservation", "preservative", "reserve", "important"]}], "derivatives": ["preservation", "preservative"], "related": ["reserve"], "antonyms": [], "collocations": ["be preserved"], "level": 1}, {"id": "WMHB-D08-026", "order": 26, "word": "opposite", "part": "adj./n.", "meaning": "반대의, 맞은편의 / 반대되는 것", "example": "Auxins have the opposite effect on the roots of plants.", "exampleKo": "옥신은 식물의 뿌리에서 반대 효과를 가진다.", "blanks": [{"id": "WMHB-D08-026-B1", "display": "Auxins have the (        ) effect on the roots of plants.", "target": "opposite", "answer": "opposite", "choices": ["opposite", "opposition", "reverse", "important", "accurate"]}], "derivatives": ["opposition"], "related": ["reverse"], "antonyms": [], "collocations": ["opposite effect"], "level": 1}, {"id": "WMHB-D08-027", "order": 27, "word": "satisfaction", "part": "n.", "meaning": "만족감", "example": "They both felt a greater sense of satisfaction than they had felt earlier.", "exampleKo": "그들은 이전보다 더 큰 만족감을 느꼈다.", "blanks": [{"id": "WMHB-D08-027-B1", "display": "They both felt a greater sense of (        ) than they had felt earlier.", "target": "satisfaction", "answer": "satisfaction", "choices": ["satisfaction", "satisfy", "satisfactory", "dissatisfaction", "important"]}], "derivatives": ["satisfy", "satisfactory", "dissatisfaction"], "related": [], "antonyms": [], "collocations": ["sense of satisfaction"], "level": 1}, {"id": "WMHB-D08-028", "order": 28, "word": "comfort", "part": "n./v.", "meaning": "편안함, 위로 / 편안하게 하다, 위로하다", "example": "The heaters provide warmth and comfort for recreational areas.", "exampleKo": "난방기는 휴식 구역에 따뜻함과 편안함을 제공한다.", "blanks": [{"id": "WMHB-D08-028-B1", "display": "The heaters provide warmth and (        ) for recreational areas.", "target": "comfort", "answer": "comfort", "choices": ["comfort", "discomfort", "comfortable", "important", "accurate"]}], "derivatives": ["discomfort", "comfortable"], "related": [], "antonyms": [], "collocations": ["provide comfort"], "level": 1}, {"id": "WMHB-D08-029", "order": 29, "word": "ease", "part": "n./v.", "meaning": "편안함, 용이함 / 편안하게 하다, 덜어 주다", "example": "This rhythmic breathing will conserve your energy and help ease your pain.", "exampleKo": "이 리드미컬한 호흡은 에너지를 보존하고 고통을 덜어 주는 데 도움이 될 것이다.", "blanks": [{"id": "WMHB-D08-029-B1", "display": "This rhythmic breathing will conserve your energy and help (        ) your pain.", "target": "ease", "answer": "ease", "choices": ["ease", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["ease your pain"], "level": 1}, {"id": "WMHB-D08-030", "order": 30, "word": "motion", "part": "n./v.", "meaning": "운동, 움직임, 동작 / 움직임으로 신호하다", "example": "Newborns are comforted by rocking because this motion is similar to what they experienced in the womb.", "exampleKo": "신생아는 흔들림으로 편안해지는데, 이 움직임이 자궁에서 경험한 것과 비슷하기 때문이다.", "blanks": [{"id": "WMHB-D08-030-B1", "display": "Newborns are comforted by rocking because this (        ) is similar to what they experienced in the womb.", "target": "motion", "answer": "motion", "choices": ["motion", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["this motion"], "level": 1}, {"id": "WMHB-D08-031", "order": 31, "word": "operation", "part": "n.", "meaning": "수술, 운영, 작업", "example": "Anesthetics keep patients unconscious for the many hours some complex operations require.", "exampleKo": "마취제는 복잡한 수술이 요구하는 오랜 시간 동안 환자를 무의식 상태로 유지한다.", "blanks": [{"id": "WMHB-D08-031-B1", "display": "Anesthetics keep patients unconscious for the many hours some complex (        )s require.", "target": "operation", "answer": "operation", "choices": ["operation", "operate", "important", "accurate", "comfort"]}], "derivatives": ["operate"], "related": [], "antonyms": [], "collocations": ["complex operations"], "level": 1}, {"id": "WMHB-D08-032", "order": 32, "word": "blame", "part": "v./n.", "meaning": "비난하다, ~의 책임으로 돌리다 / 비난, 책임", "example": "The skiers blamed themselves for the avalanche that destroyed the beautiful valley.", "exampleKo": "스키 타는 사람들은 아름다운 계곡을 파괴한 눈사태를 자신들의 책임으로 돌렸다.", "blanks": [{"id": "WMHB-D08-032-B1", "display": "The skiers (        )d themselves for the avalanche that destroyed the beautiful valley.", "target": "blame", "answer": "blame", "choices": ["blame", "accuse", "important", "accurate", "comfort"]}], "derivatives": [], "related": ["accuse"], "antonyms": [], "collocations": ["blame A for B"], "level": 1}, {"id": "WMHB-D08-033", "order": 33, "word": "refreshing", "part": "adj.", "meaning": "상쾌하게 하는, 신선한", "example": "After the long flight, it was refreshing to travel across the water by boat.", "exampleKo": "오랜 비행 후 배로 물을 건너 여행하는 것은 상쾌했다.", "blanks": [{"id": "WMHB-D08-033-B1", "display": "After the long flight, it was (        ) to travel across the water by boat.", "target": "refreshing", "answer": "refreshing", "choices": ["refreshing", "refresh", "refreshed", "important", "accurate"]}], "derivatives": ["refresh", "refreshed"], "related": [], "antonyms": [], "collocations": ["refreshing to V"], "level": 1}, {"id": "WMHB-D08-034", "order": 34, "word": "trend", "part": "n.", "meaning": "경향, 추세, 유행", "example": "Wearing recycled or second-hand clothing seems to be much more than a passing trend.", "exampleKo": "재활용 또는 중고 의류를 입는 것은 일시적 유행 그 이상인 것처럼 보인다.", "blanks": [{"id": "WMHB-D08-034-B1", "display": "Wearing recycled or second-hand clothing seems to be much more than a passing (        ).", "target": "trend", "answer": "trend", "choices": ["trend", "trendy", "tendency", "important", "accurate"]}], "derivatives": ["trendy"], "related": ["tendency"], "antonyms": [], "collocations": ["passing trend"], "level": 1}, {"id": "WMHB-D08-035", "order": 35, "word": "journal", "part": "n.", "meaning": "잡지, 간행물, 일기", "example": "That is why it is the responsibility of scientific journals to be distrustful.", "exampleKo": "그래서 의심하는 것이 과학 저널의 책임이다.", "blanks": [{"id": "WMHB-D08-035-B1", "display": "That is why it is the responsibility of scientific (        )s to be distrustful.", "target": "journal", "answer": "journal", "choices": ["journal", "journalism", "journalist", "important", "accurate"]}], "derivatives": ["journalism", "journalist"], "related": [], "antonyms": [], "collocations": ["scientific journals"], "level": 1}, {"id": "WMHB-D08-036", "order": 36, "word": "private", "part": "adj.", "meaning": "사적인, 사유의, 비밀의", "example": "Amy wrote her deepest feelings in the diary; its contents were private.", "exampleKo": "Amy는 일기에 가장 깊은 감정을 썼고, 그 내용은 사적이었다.", "blanks": [{"id": "WMHB-D08-036-B1", "display": "Amy wrote her deepest feelings in the diary; its contents were (        ).", "target": "private", "answer": "private", "choices": ["private", "privacy", "important", "accurate", "comfort"]}], "derivatives": ["privacy"], "related": [], "antonyms": [], "collocations": ["private contents"], "level": 1}, {"id": "WMHB-D08-037", "order": 37, "word": "sentence", "part": "n./v.", "meaning": "문장, 판결, 선고 / 판결을 내리다", "example": "Chances are you are reading this sentence under some kind of artificial light.", "exampleKo": "아마 여러분은 어떤 종류의 인공조명 아래에서 이 문장을 읽고 있을 것이다.", "blanks": [{"id": "WMHB-D08-037-B1", "display": "Chances are you are reading this (        ) under some kind of artificial light.", "target": "sentence", "answer": "sentence", "choices": ["sentence", "important", "accurate", "comfort", "operation"]}], "derivatives": [], "related": [], "antonyms": [], "collocations": ["this sentence"], "level": 1}, {"id": "WMHB-D08-038", "order": 38, "word": "majority", "part": "n.", "meaning": "대다수, 대부분", "example": "Having a majority of outsiders on the board generally improves the performance of a corporation.", "exampleKo": "이사회에 외부인이 다수 있으면 일반적으로 기업의 실적이 향상된다.", "blanks": [{"id": "WMHB-D08-038-B1", "display": "Having a (        ) of outsiders on the board generally improves the performance of a corporation.", "target": "majority", "answer": "majority", "choices": ["majority", "minority", "major", "important", "accurate"]}], "derivatives": ["minority", "major"], "related": [], "antonyms": [], "collocations": ["a majority of"], "level": 1}, {"id": "WMHB-D08-039", "order": 39, "word": "dozens of", "part": "phr.", "meaning": "수십의, 많은", "example": "The intersection is filled with danger for the dozens of elementary school children that cross it daily.", "exampleKo": "그 교차로는 매일 건너는 수십 명의 초등학생들에게 위험으로 가득 차 있다.", "blanks": [{"id": "WMHB-D08-039-B1", "display": "The intersection is filled with danger for the (        ) elementary school children that cross it daily.", "target": "dozens of", "answer": "dozens of", "choices": ["dozens of", "scores of", "important", "accurate", "comfort"]}], "derivatives": [], "related": ["scores of"], "antonyms": [], "collocations": ["dozens of children"], "level": 1}, {"id": "WMHB-D08-040", "order": 40, "word": "rather than", "part": "phr.", "meaning": "~보다는, ~대신에", "example": "We tend to remember the problems and the disputes rather than the pleasures of accomplishment.", "exampleKo": "우리는 성취의 즐거움보다는 문제와 분쟁을 기억하는 경향이 있다.", "blanks": [{"id": "WMHB-D08-040-B1", "display": "We tend to remember the problems and the disputes (        ) the pleasures of accomplishment.", "target": "rather than", "answer": "rather than", "choices": ["rather than", "instead of", "important", "accurate", "comfort"]}], "derivatives": [], "related": ["instead of"], "antonyms": [], "collocations": ["rather than"], "level": 1}]};
+const WORDS = APP_DATA.words;
+const STORE_KEY = 'wm_ai10_master_day08_v3';
+const TODAY = new Date().toISOString().slice(0,10);
+const TYPES = ['card','meaning','koToEn','example','family','antonym','part','spelling','custom'];
+const TYPE_LABEL = {card:'단어카드', meaning:'영어->뜻', koToEn:'뜻->영어', example:'예문괄호', family:'파생어', antonym:'반의어', part:'품사', spelling:'철자', custom:'사용자괄호'};
+let state = loadState();
+let mission = {active:false, mode:'', queue:[], idx:0, startedAt:null, beforeSkill:0};
+let currentTask = null;
+let timerId = null;
+let rightTab = 'weak';
+let modalDownloadName = 'wordmaster.txt';
+
+function defaultProgress() {
+  const words = {};
+  WORDS.forEach(w => {
+    const type = {};
+    TYPES.forEach(t => type[t] = {c:0,w:0,streak:0,last:'', due:TODAY});
+    words[w.id] = {seen:0, correct:0, wrong:0, favorite:false, mastered:false, type, customBlanks:[]};
+  });
+  return {created:TODAY, lastDate:TODAY, daily:{}, words};
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return defaultProgress();
+    const s = JSON.parse(raw);
+    WORDS.forEach(w => {
+      if(!s.words[w.id]) s.words[w.id] = defaultProgress().words[w.id];
+      TYPES.forEach(t => { if(!s.words[w.id].type[t]) s.words[w.id].type[t] = {c:0,w:0,streak:0,last:'',due:TODAY}; });
+      if(!s.words[w.id].customBlanks) s.words[w.id].customBlanks=[];
+    });
+    if(!s.daily) s.daily={};
+    return s;
+  } catch(e) { return defaultProgress(); }
+}
+function saveState() { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+function ensureDaily() {
+  if(!state.daily[TODAY]) state.daily[TODAY] = {attempts:0, correct:0, wrong:0, started:0, completed:0, skillBefore:calcSkill(), skillAfter:calcSkill(), byType:{}};
+  TYPES.forEach(t => { if(!state.daily[TODAY].byType[t]) state.daily[TODAY].byType[t]={c:0,w:0}; });
+}
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function sample(arr,n) { return shuffle(arr).slice(0,n); }
+function unique(arr) { return [...new Set(arr.filter(x => x!==undefined && x!==null && String(x).trim()!==''))]; }
+function getWord(id) { return WORDS.find(w=>w.id===id); }
+function getProg(w) { return state.words[w.id]; }
+function normalize(s) { return String(s||'').trim().toLowerCase().replace(/[.,!?;:]/g,''); }
+function todayMs() { return new Date(TODAY).getTime(); }
+function dueBonus(p,t) {
+  const due = p.type[t]?.due || TODAY;
+  return new Date(due).getTime() <= todayMs() ? 2 : 0;
+}
+function typeWeakness(w,type) {
+  const p = getProg(w); const r = p.type[type] || {c:0,w:0,streak:0};
+  let missing = 0;
+  if(type==='example' && (!w.blanks || w.blanks.length===0)) missing -= 2;
+  if(type==='family' && familyList(w).length===0) missing -= 2;
+  if(type==='antonym' && antonymList(w).length===0) missing -= 2;
+  if(type==='custom' && p.customBlanks.length===0) missing -= 3;
+  return r.w*4 - r.c*1.2 - r.streak*2 + missing + dueBonus(p,type);
+}
+function wordWeakness(w) {
+  const p = getProg(w);
+  let score = p.wrong*3 - p.correct*.7 + (p.seen===0?4:0) + (p.favorite?2:0);
+  ['meaning','koToEn','example','family','spelling','part'].forEach(t => score += Math.max(0,typeWeakness(w,t))*.7);
+  if(p.mastered) score -= 8;
+  return score;
+}
+function typeMastered(p,t) { const r=p.type[t]; return r && r.streak>=1 && r.c>=1 && r.w===0 || (r && r.streak>=2); }
+function calcWordScore(w) {
+  const p=getProg(w); let score=0, total=0;
+  const weights={meaning:22,koToEn:16,example:22,family:14,antonym:8,part:8,spelling:10};
+  Object.entries(weights).forEach(([t,wt])=>{
+    let available = true;
+    if(t==='example') available = w.blanks && w.blanks.length>0;
+    if(t==='family') available = familyList(w).length>0;
+    if(t==='antonym') available = antonymList(w).length>0;
+    if(!available) return;
+    total += wt;
+    const r=p.type[t];
+    const raw = Math.min(1, Math.max(0, (r.c*0.55 + r.streak*0.35 - r.w*0.35) / 2));
+    score += wt*raw;
+  });
+  if(total===0) return 0;
+  return Math.round(score/total*100);
+}
+function calcSkill() {
+  const avg = WORDS.reduce((s,w)=>s+calcWordScore(w),0)/WORDS.length;
+  return Math.round(avg);
+}
+function updateMastery(w) {
+  const score=calcWordScore(w); const p=getProg(w);
+  const must = ['meaning','koToEn','example','spelling'];
+  const okMust = must.every(t => {
+    if(t==='example' && (!w.blanks || w.blanks.length===0)) return true;
+    return p.type[t].streak>=1 && p.type[t].c>=1;
+  });
+  const familyOk = familyList(w).length===0 || p.type.family.streak>=1 || p.type.family.c>=1;
+  p.mastered = score>=80 && okMust && familyOk && p.wrong<=Math.max(2,p.correct);
+}
+function calcDashboard() {
+  ensureDaily();
+  const skill=calcSkill();
+  state.daily[TODAY].skillAfter=skill;
+  const mastered=WORDS.filter(w=>getProg(w).mastered).length;
+  const weak=WORDS.filter(w=>wordWeakness(w)>5 && !getProg(w).mastered).length;
+  const gain = skill - (state.daily[TODAY].skillBefore ?? skill);
+  document.getElementById('skillScore').textContent = skill;
+  document.getElementById('skillBar').style.width = skill+'%';
+  document.getElementById('masteredCount').textContent = mastered + '/' + WORDS.length;
+  document.getElementById('weakCount').textContent = weak;
+  document.getElementById('todayGain').textContent = (gain>=0?'+':'') + gain;
+  const d=state.daily[TODAY];
+  document.getElementById('dailySummary').textContent = `오늘 풀이 ${d.attempts}개 · 정답 ${d.correct}개 · 오답 ${d.wrong}개 · 완료 ${d.completed}회`;
+  saveState(); renderRightPanel();
+}
+function familyList(w) { return unique([...(w.derivatives||[]), ...(w.related||[]), ...(w.collocations||[])]); }
+function antonymList(w) {
+  const all = unique([...(w.antonyms||[])]);
+  // 데이터에서 inaccurate처럼 관련어에 들어간 반의어도 잡기
+  (w.related||[]).forEach(x => { if(/^in|^un|^dis/.test(x) && x!==w.word) all.push(x); });
+  return unique(all);
+}
+function makeChoices(answer, pool, n=5) {
+  let arr = unique([answer, ...sample(pool.filter(x=>normalize(x)!==normalize(answer)), n-1)]);
+  while(arr.length<n) arr.push('보기 ' + (arr.length+1));
+  return shuffle(arr).slice(0,n);
+}
+function meaningPool(w) { return WORDS.map(x=>x.meaning).filter(x=>x!==w.meaning); }
+function wordPool(w) { return WORDS.map(x=>x.word).filter(x=>x!==w.word); }
+function familyPool(w) { return unique(WORDS.flatMap(x=>familyList(x)).filter(x=>!familyList(w).includes(x))); }
+function partChoices(ans) { return makeChoices(ans, ['n.','v.','adj.','adv.','prep.','conj.','phr.','v./n.','n./v.','adj./n.'], 5); }
+function choiceNo(i) { return ['①','②','③','④','⑤'][i] || (i+1)+'.'; }
+function typeAdvice(t) {
+  const m={
+    meaning:'뜻을 보고 바로 말한 뒤, 5초 후 다시 영어를 가리키세요.',
+    koToEn:'한국어 뜻을 보고 영어 단어를 먼저 떠올리는 연습을 2회 하세요.',
+    example:'예문을 소리 내어 읽고 괄호 부분만 가려서 3회 반복하세요.',
+    family:'파생어와 관련어를 한 가족처럼 묶어서 외우세요.',
+    antonym:'반의어는 뜻을 반대로 바꾸는 접두어 in, un, dis를 같이 확인하세요.',
+    part:'품사가 바뀌면 문장 자리도 바뀐다는 점을 확인하세요.',
+    spelling:'철자를 3번 보고, 2번 가리고, 1번 입력하세요.',
+    custom:'직접 만든 괄호는 시험에 가까운 약점이므로 내일 다시 풀어야 합니다.'
+  }; return m[t] || '다시 한 번 확인하세요.';
+}
+function buildTask(w,type) {
+  const p=getProg(w);
+  if(type==='card') return {wordId:w.id,type,kind:'card',prompt:'단어카드', answer:'알겠어요'};
+  if(type==='meaning') return {wordId:w.id,type,kind:'mcq',prompt:`${w.word}의 뜻으로 알맞은 것은?`, choices:makeChoices(w.meaning, meaningPool(w)), answer:w.meaning, explain:`${w.word}는 '${w.meaning}'라는 뜻입니다.`};
+  if(type==='koToEn') return {wordId:w.id,type,kind:'mcq',prompt:`'${w.meaning}'에 해당하는 영어 단어는?`, choices:makeChoices(w.word, wordPool(w)), answer:w.word, explain:`'${w.meaning}'에 해당하는 단어는 ${w.word}입니다.`};
+  if(type==='example') {
+    const b=(w.blanks||[])[0];
+    if(!b) return buildTask(w,'meaning');
+    const choices = b.choices && b.choices.length>=5 ? shuffle(b.choices).slice(0,5) : makeChoices(b.answer||w.word, wordPool(w).concat(familyPool(w)));
+    return {wordId:w.id,type,kind:'mcq',prompt:'다음 예문의 괄호에 알맞은 단어를 고르시오.', sentence:b.display, choices, answer:b.answer||w.word, explain:`예문 속 정답은 ${b.answer||w.word}입니다. 뜻: ${w.meaning}`};
+  }
+  if(type==='family') {
+    const fam=familyList(w); if(fam.length===0) return buildTask(w,'meaning');
+    const ans=fam[0];
+    return {wordId:w.id,type,kind:'mcq',prompt:`${w.word}의 파생어, 관련어, 표현으로 알맞은 것은?`, choices:makeChoices(ans, familyPool(w)), answer:ans, explain:`${w.word}와 함께 외울 단어/표현: ${fam.join(', ')}`};
+  }
+  if(type==='antonym') {
+    const ants=antonymList(w); if(ants.length===0) return buildTask(w,'family');
+    const ans=ants[0];
+    return {wordId:w.id,type,kind:'mcq',prompt:`${w.word}의 반의어 또는 반대 의미에 가까운 것은?`, choices:makeChoices(ans, wordPool(w).concat(familyPool(w))), answer:ans, explain:`${w.word}의 반대 의미로 ${ans}를 함께 기억하세요.`};
+  }
+  if(type==='part') return {wordId:w.id,type,kind:'mcq',prompt:`${w.word}의 품사로 알맞은 것은?`, choices:partChoices(w.part), answer:w.part, explain:`${w.word}의 품사는 ${w.part}입니다.`};
+  if(type==='spelling') return {wordId:w.id,type,kind:'input',prompt:`뜻 '${w.meaning}'에 해당하는 영어 단어를 입력하시오.`, answer:w.word, explain:`정답 철자는 ${w.word}입니다.`};
+  if(type==='custom') {
+    const c=p.customBlanks[0]; if(!c) return buildTask(w,'example');
+    return {wordId:w.id,type,kind:'mcq',prompt:'사용자 지정 괄호 문제', sentence:c.display, choices:makeChoices(c.answer, wordPool(w).concat(familyPool(w))), answer:c.answer, explain:`직접 지정한 괄호 정답은 ${c.answer}입니다.`};
+  }
+  return buildTask(w,'meaning');
+}
+function pickWords(mode) {
+  let candidates=[...WORDS];
+  if(mode==='weak5') candidates = WORDS.filter(w=>getProg(w).wrong>0 || wordWeakness(w)>5);
+  if(candidates.length===0) candidates=[...WORDS];
+  candidates.sort((a,b)=>wordWeakness(b)-wordWeakness(a));
+  const newOnes = WORDS.filter(w=>getProg(w).seen===0).slice(0,5);
+  const weakOnes = candidates.slice(0,10);
+  return unique([...weakOnes, ...newOnes].map(w=>w.id)).map(getWord).filter(Boolean).slice(0,12);
+}
+function weakestType(w) {
+  const types=['meaning','koToEn','example','family','antonym','part','spelling','custom'];
+  let best='meaning', score=-999;
+  types.forEach(t=>{ const s=typeWeakness(w,t); if(s>score){score=s; best=t;} });
+  return best;
+}
+function buildMission(mode) {
+  const selected=pickWords(mode);
+  let q=[];
+  if(mode==='weak5') {
+    selected.slice(0,8).forEach(w=>{ q.push(buildTask(w,weakestType(w))); q.push(buildTask(w,'example')); });
+  } else {
+    selected.slice(0,5).forEach(w=>q.push(buildTask(w,'card')));
+    selected.slice(0,8).forEach(w=>q.push(buildTask(w,'meaning')));
+    selected.slice(0,7).forEach(w=>q.push(buildTask(w,'koToEn')));
+    selected.slice(0,7).forEach(w=>q.push(buildTask(w,'example')));
+    selected.slice(0,5).forEach(w=>q.push(buildTask(w,'family')));
+    selected.slice(0,4).forEach(w=>q.push(buildTask(w,'part')));
+    selected.slice(0,4).forEach(w=>q.push(buildTask(w,'spelling')));
+    // 약점이 큰 단어를 마지막에 한 번 더
+    selected.slice(0,5).forEach(w=>q.push(buildTask(w,weakestType(w))));
+  }
+  return q.filter(Boolean).slice(0, mode==='weak5'?16:45);
+}
+function startMission(mode) {
+  ensureDaily();
+  mission = {active:true, mode, queue:buildMission(mode), idx:0, startedAt:Date.now(), beforeSkill:calcSkill()};
+  state.daily[TODAY].started += 1;
+  state.daily[TODAY].skillBefore = state.daily[TODAY].skillBefore ?? mission.beforeSkill;
+  startTimer(mode==='weak5'?5*60:10*60);
+  document.getElementById('robotMsg').textContent = mode==='weak5' ? '오답만 압축 복습합니다. 틀린 유형을 바로 다시 만나게 될 거예요.' : '10분 AI 미션을 시작합니다. 새 단어와 약점 단어를 섞어서 최단 경로로 반복합니다.';
+  nextTask(true);
+}
+function startTimer(seconds) {
+  if(timerId) clearInterval(timerId);
+  let remain=seconds;
+  function draw() {
+    const m=String(Math.floor(remain/60)).padStart(2,'0'); const s=String(remain%60).padStart(2,'0');
+    document.getElementById('timer').textContent=`${m}:${s}`;
+    document.getElementById('timerLabel').textContent=mission.active?'미션 진행 중':'대기 중';
+  }
+  draw();
+  timerId=setInterval(()=>{ remain--; if(remain<=0){ remain=0; clearInterval(timerId); finishMission(); } draw(); },1000);
+}
+function nextTask(fromStart=false) {
+  hideFeedback();
+  if(!mission.active) { showDashboard(); return; }
+  if(mission.idx >= mission.queue.length) { finishMission(); return; }
+  currentTask = mission.queue[mission.idx++];
+  renderTask(currentTask);
+}
+function renderTask(task) {
+  const w=getWord(task.wordId); const p=getProg(w);
+  const stage = `${mission.idx} / ${mission.queue.length} · ${TYPE_LABEL[task.type]}`;
+  let html=`<div class="stage">${stage}</div>`;
+  if(task.kind==='card') {
+    html += `<div class="word">${w.word}</div><div class="meaning">${w.part} · ${w.meaning}</div>`;
+    html += `<div class="example"><div>${w.example}</div><div class="small">${w.exampleKo}</div></div>`;
+    const fam=familyList(w), ant=antonymList(w);
+    html += `<div class="pills">${fam.map(x=>`<span class="pill">${x}</span>`).join('')}${ant.map(x=>`<span class="pill">반의어 ${x}</span>`).join('')}</div>`;
+    html += `<div class="minirow"><button class="btn inline good" onclick="selfRate(true)">알겠어요</button><button class="btn inline warn" onclick="selfRate(false)">헷갈려요</button></div>`;
+  } else if(task.kind==='mcq') {
+    html += `<div class="word">${w.word}</div><div class="small">${w.part} · ${w.meaning}</div>`;
+    html += `<div class="meaning" style="font-size:20px">${task.prompt}</div>`;
+    if(task.sentence) html += `<div class="example">${task.sentence}</div>`;
+    html += `<div class="choices">${task.choices.map((c,i)=>`<button class="choice" onclick="answerMCQIndex(this, ${i})">${choiceNo(i)} ${c}</button>`).join('')}</div>`;
+  } else if(task.kind==='input') {
+    html += `<div class="meaning" style="font-size:20px">${task.prompt}</div>`;
+    html += `<div class="example"><div>${w.example}</div><div class="small">${w.exampleKo}</div></div>`;
+    html += `<div class="inputrow"><input id="spellInput" placeholder="영어 철자 입력" onkeydown="if(event.key==='Enter') answerInput()"><button class="btn inline primary" onclick="answerInput()">확인</button></div>`;
+  }
+  document.getElementById('studyArea').innerHTML=html;
+}
+function answerMCQIndex(btn, idx) {
+  const selected = currentTask.choices[idx];
+  answerMCQ(btn, selected);
+}
+function selfRate(ok) {
+  recordAnswer(ok, ok?'스스로 기억 확인 완료':'헷갈림 표시. 이 단어는 오늘 다시 나옵니다.');
+}
+function answerMCQ(btn, selected) {
+  const buttons=[...document.querySelectorAll('.choice')];
+  buttons.forEach(b=>b.disabled=true);
+  const ok = normalize(selected)===normalize(currentTask.answer);
+  buttons.forEach(b=>{
+    const text=b.textContent.replace(/^[①②③④⑤]\s*/, '');
+    if(normalize(text)===normalize(currentTask.answer)) b.classList.add('correct');
+  });
+  if(!ok) btn.classList.add('wrong');
+  recordAnswer(ok, makeExplain(selected, ok));
+}
+function answerInput() {
+  const input=document.getElementById('spellInput'); if(!input) return;
+  const selected=input.value;
+  const ok=normalize(selected)===normalize(currentTask.answer);
+  recordAnswer(ok, makeExplain(selected, ok));
+}
+function makeExplain(selected, ok) {
+  const w=getWord(currentTask.wordId);
+  let msg = ok ? `정답입니다. ${currentTask.explain||''}` : `오답입니다. 선택/입력: ${selected||'(빈칸)'} · 정답: ${currentTask.answer}. ${currentTask.explain||''}`;
+  msg += `<br>반복 처방: ${typeAdvice(currentTask.type)}`;
+  return msg;
+}
+function recordAnswer(ok, msg) {
+  ensureDaily();
+  const w=getWord(currentTask.wordId); const p=getProg(w); const t=currentTask.type;
+  p.seen += 1;
+  p.type[t].last = TODAY;
+  if(ok) {
+    p.correct += 1; p.type[t].c += 1; p.type[t].streak += 1;
+    p.type[t].due = addDays(TODAY, p.type[t].streak>=2 ? 3 : 1);
+    state.daily[TODAY].correct += 1; state.daily[TODAY].byType[t].c += 1;
+  } else {
+    p.wrong += 1; p.type[t].w += 1; p.type[t].streak = 0; p.type[t].due = TODAY;
+    p.favorite = true;
+    state.daily[TODAY].wrong += 1; state.daily[TODAY].byType[t].w += 1;
+    if(mission.active && t!=='card') mission.queue.splice(Math.min(mission.idx+2, mission.queue.length),0, buildTask(w,t));
+  }
+  state.daily[TODAY].attempts += 1;
+  updateMastery(w); saveState(); calcDashboard(); showFeedback(ok,msg);
+}
+function addDays(dateStr,n) { const d=new Date(dateStr); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+function showFeedback(ok,msg) {
+  const f=document.getElementById('feedback'); f.className='feedback ' + (ok?'good':'bad'); f.innerHTML=msg;
+}
+function hideFeedback() { const f=document.getElementById('feedback'); f.className='feedback'; f.innerHTML=''; }
+function finishMission() {
+  if(!mission.active) return;
+  mission.active=false; ensureDaily(); state.daily[TODAY].completed += 1; state.daily[TODAY].skillAfter=calcSkill(); saveState();
+  if(timerId) clearInterval(timerId);
+  document.getElementById('timerLabel').textContent='미션 완료';
+  document.getElementById('robotMsg').textContent='미션 완료! 오늘 틀린 유형은 오른쪽 반복 처방에 자동 정리되었습니다.';
+  showDashboard(); calcDashboard();
+}
+function showDashboard() {
+  const skill=calcSkill(); const mastered=WORDS.filter(w=>getProg(w).mastered).length;
+  const weak=WORDS.filter(w=>wordWeakness(w)>5 && !getProg(w).mastered).sort((a,b)=>wordWeakness(b)-wordWeakness(a)).slice(0,5);
+  let html=`<div class="stage">오늘의 실력 현황</div><div class="word" style="font-size:34px">${skill}점</div>`;
+  html += `<div class="meaning" style="font-size:18px">완전마스터 ${mastered}개 / ${WORDS.length}개</div>`;
+  html += `<div class="example">다현 연구원, 오늘은 약한 단어를 오래 붙잡기보다 짧게 여러 번 만나는 방식이 가장 좋습니다. 오답은 실패가 아니라 내일 다시 나올 실험 재료입니다.</div>`;
+  html += `<h2>지금 먼저 반복할 단어</h2>`;
+  html += weak.length? weak.map(w=>`<div class="item"><div class="topline"><span>${w.word}</span><span class="badge bad">${TYPE_LABEL[weakestType(w)]}</span></div><div class="small">${w.meaning} · ${typeAdvice(weakestType(w))}</div></div>`).join('') : '<div class="item">아직 뚜렷한 약점이 없습니다. 10분 미션을 시작하세요.</div>';
+  document.getElementById('studyArea').innerHTML=html;
+  hideFeedback();
+}
+function setRightTab(tab) { rightTab=tab; ['Weak','Growth','Data'].forEach(x=>document.getElementById('tab'+x).classList.remove('active')); document.getElementById('tab'+tab[0].toUpperCase()+tab.slice(1)).classList.add('active'); renderRightPanel(); }
+function renderRightPanel() {
+  const panel=document.getElementById('rightPanel'); if(!panel) return;
+  if(rightTab==='weak') {
+    const rows=WORDS.map(w=>({w,score:wordWeakness(w),type:weakestType(w)})).filter(x=>x.score>2).sort((a,b)=>b.score-a.score).slice(0,12);
+    panel.innerHTML = rows.length? rows.map(x=>`<div class="item"><div class="topline"><span>${x.w.word}</span><span class="badge bad">${TYPE_LABEL[x.type]}</span></div><div class="small">${x.w.meaning}<br>${typeAdvice(x.type)}</div></div>`).join('') : '<div class="item">약점이 아직 없습니다. 미션을 시작하면 자동 분석됩니다.</div>';
+  }
+  if(rightTab==='growth') {
+    const days=Object.keys(state.daily).sort().slice(-7);
+    panel.innerHTML = days.length? days.map(d=>{const x=state.daily[d]; const gain=(x.skillAfter||0)-(x.skillBefore||0); return `<div class="item"><div class="topline"><span>${d}</span><span class="badge good">${gain>=0?'+':''}${gain}</span></div><div class="small">풀이 ${x.attempts} · 정답 ${x.correct} · 오답 ${x.wrong} · 완료 ${x.completed}</div></div>`;}).join('') : '<div class="item">학습 기록이 없습니다.</div>';
+  }
+  if(rightTab==='data') {
+    const fam=WORDS.reduce((s,w)=>s+familyList(w).length,0), blanks=WORDS.reduce((s,w)=>s+(w.blanks||[]).length,0), ants=WORDS.reduce((s,w)=>s+antonymList(w).length,0);
+    panel.innerHTML = `<div class="item"><div class="topline"><span>DAY 08 데이터</span><span class="badge">${WORDS.length}개</span></div><div class="small">예문괄호 ${blanks}개<br>파생어/관련어/표현 ${fam}개<br>반의어 후보 ${ants}개<br>문제유형 8개: 뜻, 뜻->영어, 예문, 파생어, 반의어, 품사, 철자, 사용자괄호</div></div>` + WORDS.slice(0,40).map(w=>`<div class="item"><div class="topline"><span>${w.order}. ${w.word}</span><span class="badge">${calcWordScore(w)}점</span></div><div class="small">${w.meaning}</div></div>`).join('');
+  }
+}
+function makeWeakTxt() {
+  const weak=WORDS.map(w=>({w,score:wordWeakness(w),type:weakestType(w)})).sort((a,b)=>b.score-a.score).slice(0,12);
+  const tasks=[];
+  weak.forEach(x=>{ tasks.push(buildTask(x.w,x.type)); if(x.type!=='example') tasks.push(buildTask(x.w,'example')); });
+  let txt=`Word Master 고등 BASIC DAY 08 약점 시험지
+학생: 다현
+생성일: ${TODAY}
+기준: 오답, 미완성, 예문/파생어/철자 약점 자동 선별
+
+`;
+  tasks.slice(0,15).forEach((t,idx)=>{
+    const w=getWord(t.wordId);
+    txt += `문제 ${idx+1}. ${t.prompt}
+`;
+    if(t.sentence) txt += `${t.sentence}
+`;
+    if(t.kind==='input') {
+      txt += `정답을 직접 쓰시오.
+
+`;
+      txt += `1번 해설 정답 철자는 ${t.answer}이다. ${w.word}는 '${w.meaning}'라는 뜻이다.
+`;
+      txt += `정답 ${t.answer}
+
+`;
+    } else {
+      const choices=t.choices || makeChoices(t.answer, wordPool(w));
+      choices.slice(0,5).forEach((c,i)=>txt += `${choiceNo(i)} ${c}
+`);
+      txt += `
+`;
+      choices.slice(0,5).forEach((c,i)=>{
+        const ok=normalize(c)===normalize(t.answer);
+        txt += `${i+1}번 해설 ${ok?'정답이다. ':'오답이다. '}${explainChoice(c,t,w)}
+`;
+      });
+      txt += `
+정답 ${choiceNo(choices.findIndex(c=>normalize(c)===normalize(t.answer)))}
+
+`;
+    }
+  });
+  showModal('약점 시험지 TXT', txt, 'wordmaster_day08_weak_test.txt', '복사해서 한글이나 Word에 붙여넣으면 바로 시험지로 쓸 수 있습니다.');
+}
+function explainChoice(c,t,w) {
+  if(normalize(c)===normalize(t.answer)) return `${t.explain||''}`;
+  const found=WORDS.find(x=>normalize(x.word)===normalize(c));
+  if(found) return `${c}는 '${found.meaning}'라는 뜻이므로 이 문항의 정답이 아니다.`;
+  return `${c}는 이 문항에서 요구하는 정답 '${t.answer}'와 다르다.`;
+}
+function makeChatGPTPrompt() {
+  const rows=WORDS.map(w=>({w,score:wordWeakness(w),type:weakestType(w),p:getProg(w)})).sort((a,b)=>b.score-a.score).slice(0,10);
+  let txt=`다음은 다현이의 Word Master 고등 BASIC DAY 08 약점 데이터입니다.
+목표는 하루 10분 안에 단어 뜻, 예문 괄호, 파생어, 반의어, 철자까지 완전마스터하는 것입니다.
+
+요청:
+1. 아래 약점 단어만 사용해서 10문제 시험지를 만들어 주세요.
+2. 문제 형식은 반드시 '문제 -> 1-5번 보기 -> 1-5번 해설 -> 정답' 순서로 작성해 주세요.
+3. 문제 유형은 예문 괄호 4문제, 뜻->영어 2문제, 파생어 2문제, 반의어/품사 1문제, 철자 1문제로 섞어 주세요.
+4. 해설은 중1 학생이 바로 이해할 수 있게 짧고 정확하게 써 주세요.
+5. 마지막에 '내일 10분 복습 순서'를 5줄로 제시해 주세요.
+
+약점 데이터:
+`;
+  rows.forEach((x,i)=>{
+    const w=x.w; const fam=familyList(w).join(', ') || '없음'; const ant=antonymList(w).join(', ') || '없음';
+    txt += `
+${i+1}. ${w.word}
+품사: ${w.part}
+뜻: ${w.meaning}
+예문: ${w.example}
+해석: ${w.exampleKo}
+파생어/관련어: ${fam}
+반의어 후보: ${ant}
+가장 약한 유형: ${TYPE_LABEL[x.type]}
+오답수: ${x.p.wrong}
+`;
+  });
+  showModal('ChatGPT 고급훈련 프롬프트', txt, 'chatgpt_wordmaster_day08_prompt.txt', '이 프롬프트를 복사해서 ChatGPT에 넣으면 다현이 약점 맞춤형 고급 문제가 생성됩니다. GitHub Pages에 API 키를 넣지 않는 안전한 방식입니다.');
+}
+function toggleCustomBlank() {
+  const area=document.getElementById('studyArea');
+  const options=WORDS.map(w=>`<option value="${w.id}">${w.order}. ${w.word} - ${w.meaning}</option>`).join('');
+  area.innerHTML=`<div class="stage">사용자 지정 괄호 추가</div><div class="robotmsg">예문에서 다현이가 꼭 외워야 할 부분을 직접 괄호로 지정하세요. 예: play an important role 전체를 괄호로 만들 수 있습니다.</div><select id="customWord">${options}</select><textarea id="customSentence" placeholder="문장을 입력하세요. 비워두면 선택 단어의 기본 예문을 사용합니다."></textarea><div class="inputrow"><input id="customTarget" placeholder="괄호로 바꿀 단어 또는 표현"><input id="customAnswer" placeholder="정답. 비워두면 괄호 표현과 같음"></div><button class="btn primary" onclick="saveCustomBlank()">괄호 문제 저장</button>`;
+}
+function saveCustomBlank() {
+  const wid=document.getElementById('customWord').value; const w=getWord(wid); const p=getProg(w);
+  let sentence=document.getElementById('customSentence').value.trim() || w.example;
+  const target=document.getElementById('customTarget').value.trim(); const answer=document.getElementById('customAnswer').value.trim() || target;
+  if(!target) { alert('괄호로 만들 표현을 입력하세요.'); return; }
+  const display=sentence.replace(target,'(        )');
+  p.customBlanks.unshift({sentence,target,answer,display,created:TODAY}); saveState(); calcDashboard();
+  document.getElementById('robotMsg').textContent=`사용자 괄호 저장 완료: ${w.word}`;
+  renderTask(buildTask(w,'custom'));
+}
+function showModal(title, text, filename, hint) {
+  modalDownloadName=filename; document.getElementById('modalTitle').textContent=title; document.getElementById('modalText').value=text; document.getElementById('modalHint').textContent=hint||''; document.getElementById('modalBox').classList.add('show');
+}
+function closeModal() { document.getElementById('modalBox').classList.remove('show'); }
+function copyModalText() {
+  const text=document.getElementById('modalText').value;
+  navigator.clipboard?.writeText(text).then(()=>alert('복사했습니다.')).catch(()=>{document.getElementById('modalText').select(); document.execCommand('copy'); alert('복사했습니다.');});
+}
+function downloadModalText() {
+  const blob=new Blob([document.getElementById('modalText').value],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=modalDownloadName; a.click(); URL.revokeObjectURL(a.href);
+}
+function resetTodayOnly() {
+  if(!confirm('오늘 일일 기록만 초기화할까요? 단어별 누적 진도는 유지됩니다.')) return;
+  delete state.daily[TODAY]; saveState(); calcDashboard(); showDashboard();
+}
+function init() { ensureDaily(); showDashboard(); calcDashboard(); }
+init();
 </script>
 </body>
 </html>
