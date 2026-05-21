@@ -1,0 +1,55 @@
+{
+  "day": "DAY09",
+  "words": [
+    {
+      "word": "review",
+      "pos": "v./n.",
+      "meaning": "복습하다, 검토하다; 복습, 검토",
+      "example": "We review difficult words before starting a new lesson.",
+      "blankAnswer": "review",
+      "derivatives": [
+        "reviewer",
+        "reviewed"
+      ],
+      "synonyms": [
+        "check",
+        "go over"
+      ],
+      "antonyms": [
+        "ignore",
+        "skip"
+      ],
+      "spellingDistractors": [
+        "rewiew",
+        "reveiw",
+        "revue",
+        "reviewed"
+      ]
+    },
+    {
+      "word": "prepare",
+      "pos": "v.",
+      "meaning": "준비하다",
+      "example": "She will prepare carefully for the next day.",
+      "blankAnswer": "prepare",
+      "derivatives": [
+        "preparation",
+        "prepared"
+      ],
+      "synonyms": [
+        "get ready",
+        "arrange"
+      ],
+      "antonyms": [
+        "neglect",
+        "forget"
+      ],
+      "spellingDistractors": [
+        "prepair",
+        "perpare",
+        "prepear",
+        "prepared"
+      ]
+    }
+  ]
+}
