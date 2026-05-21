@@ -1,29 +1,165 @@
 {
   "day": "DAY08",
+  "source": "Word Master 고등 BASIC DAY 08",
   "words": [
     {
-      "word": "assign",
-      "pos": "v.",
-      "meaning": "임명하다, 맡기다, 지정하다",
-      "example": "They assigned me the job of picking up all the garbage.",
-      "blankAnswer": "assigned",
+      "word": "accurate",
+      "pos": "adj.",
+      "meaning": "정확한, 정밀한",
+      "example": "All that bad news is not an accurate reflection of what is really going on.",
+      "blankAnswer": "accurate",
       "derivatives": [
-        "assignment",
-        "assigned"
+        "accuracy",
+        "accurately",
+        "inaccurate"
       ],
       "synonyms": [
-        "allocate",
-        "designate"
+        "precise",
+        "exact",
+        "correct"
+      ],
+      "antonyms": [
+        "inaccurate",
+        "wrong",
+        "vague"
+      ],
+      "spellingDistractors": [
+        "accurat",
+        "acurate",
+        "accuratte",
+        "accuratey"
+      ]
+    },
+    {
+      "word": "precise",
+      "pos": "adj.",
+      "meaning": "정확한, 정밀한",
+      "example": "The detail lines are precise and well-organized.",
+      "blankAnswer": "precise",
+      "derivatives": [
+        "precision",
+        "precisely"
+      ],
+      "synonyms": [
+        "accurate",
+        "exact",
+        "specific"
+      ],
+      "antonyms": [
+        "vague",
+        "rough",
+        "inaccurate"
+      ],
+      "spellingDistractors": [
+        "presice",
+        "precize",
+        "preciese",
+        "precis"
+      ]
+    },
+    {
+      "word": "estimate",
+      "pos": "v./n.",
+      "meaning": "추정하다, 평가하다; 추정, 견적",
+      "example": "You will need to make some estimate of how long you need together.",
+      "blankAnswer": "estimate",
+      "derivatives": [
+        "estimation",
+        "estimated"
+      ],
+      "synonyms": [
+        "evaluate",
+        "assess",
+        "approximate"
+      ],
+      "antonyms": [
+        "measure exactly",
+        "calculate exactly"
+      ],
+      "spellingDistractors": [
+        "estemate",
+        "estimete",
+        "estimatte",
+        "estimait"
+      ]
+    },
+    {
+      "word": "compete",
+      "pos": "v.",
+      "meaning": "경쟁하다, 겨루다",
+      "example": "Sunlight is not enough, so the plants have to compete for sunshine.",
+      "blankAnswer": "compete",
+      "derivatives": [
+        "competition",
+        "competitive",
+        "competitor"
+      ],
+      "synonyms": [
+        "contest",
+        "rival",
+        "struggle"
+      ],
+      "antonyms": [
+        "cooperate",
+        "yield"
+      ],
+      "spellingDistractors": [
+        "compet",
+        "competeing",
+        "compit",
+        "compeet"
+      ]
+    },
+    {
+      "word": "submit",
+      "pos": "v.",
+      "meaning": "제출하다, 굴복하다",
+      "example": "You should not submit poems dealing with break-up, depression, and regret.",
+      "blankAnswer": "submit",
+      "derivatives": [
+        "submission",
+        "submissive"
+      ],
+      "synonyms": [
+        "hand in",
+        "surrender",
+        "present"
       ],
       "antonyms": [
         "withdraw",
-        "dismiss"
+        "resist",
+        "refuse"
       ],
       "spellingDistractors": [
-        "asign",
-        "assgin",
-        "assing",
-        "asignn"
+        "sumit",
+        "submitt",
+        "submite",
+        "submmit"
+      ]
+    },
+    {
+      "word": "grab",
+      "pos": "v.",
+      "meaning": "붙잡다, 움켜쥐다",
+      "example": "I saw something floating in the water next to me and grabbed it.",
+      "blankAnswer": "grabbed",
+      "derivatives": [
+        "grab"
+      ],
+      "synonyms": [
+        "grasp",
+        "seize",
+        "snatch"
+      ],
+      "antonyms": [
+        "release",
+        "let go"
+      ],
+      "spellingDistractors": [
+        "grap",
+        "grabb",
+        "grabe",
+        "graab"
       ]
     },
     {
@@ -38,7 +174,8 @@
       ],
       "synonyms": [
         "hypothesis",
-        "principle"
+        "principle",
+        "explanation"
       ],
       "antonyms": [
         "fact",
@@ -49,6 +186,31 @@
         "thoery",
         "theary",
         "teory"
+      ]
+    },
+    {
+      "word": "document",
+      "pos": "n./v.",
+      "meaning": "문서, 서류; 기록하다",
+      "example": "Make sure you keep copies of any letters or documents that you send.",
+      "blankAnswer": "documents",
+      "derivatives": [
+        "documentary",
+        "documentation"
+      ],
+      "synonyms": [
+        "record",
+        "paper",
+        "file"
+      ],
+      "antonyms": [
+        "undocumented"
+      ],
+      "spellingDistractors": [
+        "documant",
+        "documnet",
+        "documentry",
+        "documment"
       ]
     },
     {
@@ -64,17 +226,46 @@
       ],
       "synonyms": [
         "allow",
-        "make possible"
+        "make possible",
+        "permit"
       ],
       "antonyms": [
         "prevent",
-        "disable"
+        "disable",
+        "block"
       ],
       "spellingDistractors": [
         "enabel",
         "eneble",
         "unable",
         "disable"
+      ]
+    },
+    {
+      "word": "avoid",
+      "pos": "v.",
+      "meaning": "피하다, 막다",
+      "example": "HUBO was able to turn the vehicle smoothly to avoid a barrier.",
+      "blankAnswer": "avoid",
+      "derivatives": [
+        "avoidable",
+        "avoidance"
+      ],
+      "synonyms": [
+        "evade",
+        "escape",
+        "prevent"
+      ],
+      "antonyms": [
+        "face",
+        "confront",
+        "meet"
+      ],
+      "spellingDistractors": [
+        "aviod",
+        "avoidance",
+        "avoide",
+        "avoyd"
       ]
     },
     {
@@ -89,11 +280,13 @@
       ],
       "synonyms": [
         "flee",
-        "get away"
+        "get away",
+        "break out"
       ],
       "antonyms": [
         "remain",
-        "be caught"
+        "be caught",
+        "stay"
       ],
       "spellingDistractors": [
         "escpae",
@@ -115,10 +308,12 @@
       ],
       "synonyms": [
         "create anew",
-        "reform"
+        "reform",
+        "modernize"
       ],
       "antonyms": [
-        "imitate"
+        "imitate",
+        "copy"
       ],
       "spellingDistractors": [
         "inovate",
@@ -138,7 +333,8 @@
       ],
       "synonyms": [
         "understanding",
-        "perception"
+        "perception",
+        "awareness"
       ],
       "antonyms": [
         "confusion",
@@ -187,7 +383,8 @@
         "infected"
       ],
       "synonyms": [
-        "contamination"
+        "contamination",
+        "disease"
       ],
       "antonyms": [
         "prevention",
@@ -201,10 +398,59 @@
       ]
     },
     {
+      "word": "vehicle",
+      "pos": "n.",
+      "meaning": "탈것, 운송 수단; 매개체",
+      "example": "Almost half of the oil pumped each year is used to fuel the world's motor vehicles.",
+      "blankAnswer": "vehicles",
+      "derivatives": [
+        "vehicular"
+      ],
+      "synonyms": [
+        "transport",
+        "car",
+        "automobile"
+      ],
+      "antonyms": [
+        "pedestrian"
+      ],
+      "spellingDistractors": [
+        "vehical",
+        "vechicle",
+        "vehicule",
+        "vehiclee"
+      ]
+    },
+    {
+      "word": "belong",
+      "pos": "v.",
+      "meaning": "속하다, 제자리에 있다",
+      "example": "An observer didn't know to which group each baby belonged.",
+      "blankAnswer": "belonged",
+      "derivatives": [
+        "belongings"
+      ],
+      "synonyms": [
+        "be part of",
+        "fit",
+        "be a member of"
+      ],
+      "antonyms": [
+        "be excluded",
+        "not fit"
+      ],
+      "spellingDistractors": [
+        "belonng",
+        "belogn",
+        "belonged",
+        "belonging"
+      ]
+    },
+    {
       "word": "celebrate",
       "pos": "v.",
       "meaning": "기념하다, 축하하다, 찬양하다",
-      "example": "An escaped frog celebrated his miraculous freedom.",
+      "example": "Amazed, the other frogs celebrated his miraculous freedom.",
       "blankAnswer": "celebrated",
       "derivatives": [
         "celebration",
@@ -213,16 +459,45 @@
       ],
       "synonyms": [
         "commemorate",
-        "congratulate"
+        "congratulate",
+        "praise"
       ],
       "antonyms": [
-        "mourn"
+        "mourn",
+        "lament"
       ],
       "spellingDistractors": [
         "celabrate",
         "celeberate",
         "celebreate",
         "celebration"
+      ]
+    },
+    {
+      "word": "demonstrate",
+      "pos": "v.",
+      "meaning": "시범을 보이다, 증명하다, 시위하다",
+      "example": "The leader of the town chose a day when James demonstrated his skills.",
+      "blankAnswer": "demonstrated",
+      "derivatives": [
+        "demonstration",
+        "demonstrator"
+      ],
+      "synonyms": [
+        "show",
+        "prove",
+        "display"
+      ],
+      "antonyms": [
+        "hide",
+        "disprove",
+        "conceal"
+      ],
+      "spellingDistractors": [
+        "demostrate",
+        "demonstrat",
+        "demonstate",
+        "demonstration"
       ]
     },
     {
@@ -247,6 +522,31 @@
         "disastrous",
         "diasaster",
         "dissaster"
+      ]
+    },
+    {
+      "word": "economic",
+      "pos": "adj.",
+      "meaning": "경제의, 경제학의",
+      "example": "Chinese immigrants contributed to the economic success of the West Coast.",
+      "blankAnswer": "economic",
+      "derivatives": [
+        "economy",
+        "economics",
+        "economical"
+      ],
+      "synonyms": [
+        "financial",
+        "monetary"
+      ],
+      "antonyms": [
+        "noneconomic"
+      ],
+      "spellingDistractors": [
+        "economical",
+        "ecomonic",
+        "econimic",
+        "economics"
       ]
     },
     {
@@ -275,10 +575,62 @@
       ]
     },
     {
+      "word": "assign",
+      "pos": "v.",
+      "meaning": "임명하다, 맡기다, 지정하다",
+      "example": "They assigned me the job of picking up all the garbage.",
+      "blankAnswer": "assigned",
+      "derivatives": [
+        "assignment",
+        "assigned"
+      ],
+      "synonyms": [
+        "allocate",
+        "designate"
+      ],
+      "antonyms": [
+        "withdraw",
+        "dismiss"
+      ],
+      "spellingDistractors": [
+        "asign",
+        "assgin",
+        "assing",
+        "asignn"
+      ]
+    },
+    {
+      "word": "preserve",
+      "pos": "v.",
+      "meaning": "보존하다, 보호하다, 지키다",
+      "example": "We know about dinosaurs because their bones have been preserved as fossils.",
+      "blankAnswer": "preserved",
+      "derivatives": [
+        "preservation",
+        "preservative"
+      ],
+      "synonyms": [
+        "keep",
+        "conserve",
+        "protect"
+      ],
+      "antonyms": [
+        "destroy",
+        "damage",
+        "waste"
+      ],
+      "spellingDistractors": [
+        "preseve",
+        "preserver",
+        "preserv",
+        "presarve"
+      ]
+    },
+    {
       "word": "transfer",
       "pos": "v./n.",
-      "meaning": "옮기다, 갈아타다; 이동, 이전, 환승",
-      "example": "The tasks involved are sowing seeds outside and transferring vegetable plants.",
+      "meaning": "옮기다, 이동하다; 이동, 환승",
+      "example": "The kind of tasks involved are sowing seeds outside and transferring vegetable plants.",
       "blankAnswer": "transferring",
       "derivatives": [
         "transmission",
@@ -286,7 +638,8 @@
       ],
       "synonyms": [
         "move",
-        "transport"
+        "transport",
+        "carry"
       ],
       "antonyms": [
         "keep",
@@ -297,6 +650,381 @@
         "trasfer",
         "transmission",
         "transferable"
+      ]
+    },
+    {
+      "word": "opposite",
+      "pos": "adj./n.",
+      "meaning": "정반대의, 맞은편의; 정반대의 것",
+      "example": "Auxins have the opposite effect on the roots of plants.",
+      "blankAnswer": "opposite",
+      "derivatives": [
+        "opposition",
+        "oppose"
+      ],
+      "synonyms": [
+        "reverse",
+        "contrary"
+      ],
+      "antonyms": [
+        "same",
+        "similar"
+      ],
+      "spellingDistractors": [
+        "opposit",
+        "oposite",
+        "oppossite",
+        "opposition"
+      ]
+    },
+    {
+      "word": "satisfaction",
+      "pos": "n.",
+      "meaning": "만족감",
+      "example": "They both felt a greater sense of satisfaction than they had felt earlier.",
+      "blankAnswer": "satisfaction",
+      "derivatives": [
+        "satisfy",
+        "satisfactory",
+        "dissatisfaction"
+      ],
+      "synonyms": [
+        "contentment",
+        "pleasure"
+      ],
+      "antonyms": [
+        "dissatisfaction",
+        "discontent"
+      ],
+      "spellingDistractors": [
+        "satisfication",
+        "satisfacion",
+        "satisfacton",
+        "satisfactory"
+      ]
+    },
+    {
+      "word": "comfort",
+      "pos": "n./v.",
+      "meaning": "편안, 위로; 편안하게 하다, 위로하다",
+      "example": "The heaters provide warmth and comfort for recreational areas.",
+      "blankAnswer": "comfort",
+      "derivatives": [
+        "comfortable",
+        "discomfort"
+      ],
+      "synonyms": [
+        "ease",
+        "relief",
+        "consolation"
+      ],
+      "antonyms": [
+        "discomfort",
+        "distress"
+      ],
+      "spellingDistractors": [
+        "comport",
+        "comforte",
+        "comfert",
+        "comfortable"
+      ]
+    },
+    {
+      "word": "ease",
+      "pos": "n./v.",
+      "meaning": "편안함, 용이함; 편하게 하다, 덜어 주다",
+      "example": "This rhythmic breathing will conserve your energy and help ease your pain.",
+      "blankAnswer": "ease",
+      "derivatives": [
+        "easy",
+        "easily"
+      ],
+      "synonyms": [
+        "comfort",
+        "relief",
+        "simplicity"
+      ],
+      "antonyms": [
+        "difficulty",
+        "discomfort"
+      ],
+      "spellingDistractors": [
+        "eaze",
+        "eas",
+        "easy",
+        "eased"
+      ]
+    },
+    {
+      "word": "motion",
+      "pos": "n.",
+      "meaning": "운동, 움직임, 동작",
+      "example": "Newborns are comforted by rocking because this motion is similar to what they experienced in the womb.",
+      "blankAnswer": "motion",
+      "derivatives": [
+        "motionless"
+      ],
+      "synonyms": [
+        "movement",
+        "gesture",
+        "action"
+      ],
+      "antonyms": [
+        "stillness",
+        "rest"
+      ],
+      "spellingDistractors": [
+        "moton",
+        "motoin",
+        "movement",
+        "motionless"
+      ]
+    },
+    {
+      "word": "operation",
+      "pos": "n.",
+      "meaning": "수술, 운영, 작업",
+      "example": "Anesthetics keep patients unconscious for the many hours some complex operations require.",
+      "blankAnswer": "operations",
+      "derivatives": [
+        "operate",
+        "operator",
+        "operative"
+      ],
+      "synonyms": [
+        "surgery",
+        "procedure",
+        "process"
+      ],
+      "antonyms": [
+        "inaction"
+      ],
+      "spellingDistractors": [
+        "opperation",
+        "operationg",
+        "operate",
+        "operator"
+      ]
+    },
+    {
+      "word": "blame",
+      "pos": "v./n.",
+      "meaning": "비난하다, ~의 책임으로 돌리다; 비난, 책임",
+      "example": "The skiers blamed themselves for the avalanche that destroyed the beautiful valley.",
+      "blankAnswer": "blamed",
+      "derivatives": [
+        "blameful",
+        "blameless"
+      ],
+      "synonyms": [
+        "accuse",
+        "criticize",
+        "fault"
+      ],
+      "antonyms": [
+        "praise",
+        "forgive"
+      ],
+      "spellingDistractors": [
+        "blaim",
+        "blamd",
+        "blam",
+        "blameing"
+      ]
+    },
+    {
+      "word": "refreshing",
+      "pos": "adj.",
+      "meaning": "상쾌하게 하는, 신선한",
+      "example": "After the long flight, it was refreshing to travel across the water by boat.",
+      "blankAnswer": "refreshing",
+      "derivatives": [
+        "refresh",
+        "refreshed"
+      ],
+      "synonyms": [
+        "fresh",
+        "reviving",
+        "invigorating"
+      ],
+      "antonyms": [
+        "tiring",
+        "boring"
+      ],
+      "spellingDistractors": [
+        "refresing",
+        "refresh",
+        "refreshed",
+        "refrashing"
+      ]
+    },
+    {
+      "word": "trend",
+      "pos": "n.",
+      "meaning": "경향, 추세, 유행",
+      "example": "Wearing recycled or second-hand clothing seems to be much more than a passing trend.",
+      "blankAnswer": "trend",
+      "derivatives": [
+        "trendy"
+      ],
+      "synonyms": [
+        "tendency",
+        "fashion",
+        "movement"
+      ],
+      "antonyms": [
+        "tradition",
+        "stability"
+      ],
+      "spellingDistractors": [
+        "trned",
+        "tend",
+        "trendy",
+        "trendd"
+      ]
+    },
+    {
+      "word": "journal",
+      "pos": "n.",
+      "meaning": "전문지, 학술지, 일기",
+      "example": "That's why it is the responsibility of scientific journals to be distrustful.",
+      "blankAnswer": "journals",
+      "derivatives": [
+        "journalism",
+        "journalist"
+      ],
+      "synonyms": [
+        "magazine",
+        "periodical",
+        "diary"
+      ],
+      "antonyms": [
+        "none"
+      ],
+      "spellingDistractors": [
+        "jounal",
+        "journalism",
+        "jouranal",
+        "jornal"
+      ]
+    },
+    {
+      "word": "private",
+      "pos": "adj.",
+      "meaning": "사적인, 사유의, 비밀의",
+      "example": "Amy wrote her deepest feelings in the diary; its contents were private.",
+      "blankAnswer": "private",
+      "derivatives": [
+        "privacy",
+        "privately"
+      ],
+      "synonyms": [
+        "personal",
+        "secret"
+      ],
+      "antonyms": [
+        "public",
+        "open"
+      ],
+      "spellingDistractors": [
+        "privat",
+        "privite",
+        "privacy",
+        "privatly"
+      ]
+    },
+    {
+      "word": "sentence",
+      "pos": "n.",
+      "meaning": "문장, 판결, 선고",
+      "example": "Chances are you are reading this sentence under some kind of artificial light.",
+      "blankAnswer": "sentence",
+      "derivatives": [
+        "sentential"
+      ],
+      "synonyms": [
+        "statement",
+        "judgment"
+      ],
+      "antonyms": [
+        "fragment"
+      ],
+      "spellingDistractors": [
+        "sentense",
+        "sentance",
+        "sentince",
+        "sentences"
+      ]
+    },
+    {
+      "word": "majority",
+      "pos": "n.",
+      "meaning": "대다수, 대부분",
+      "example": "Having a majority of outsiders on the board generally improves the performance of a corporation.",
+      "blankAnswer": "majority",
+      "derivatives": [
+        "major",
+        "minority"
+      ],
+      "synonyms": [
+        "most",
+        "greater part"
+      ],
+      "antonyms": [
+        "minority"
+      ],
+      "spellingDistractors": [
+        "majoraty",
+        "majorite",
+        "minority",
+        "majorty"
+      ]
+    },
+    {
+      "word": "dozens of",
+      "pos": "phr.",
+      "meaning": "수십의, 많은",
+      "example": "The intersection is filled with danger for the dozens of elementary school children that cross it daily.",
+      "blankAnswer": "dozens of",
+      "derivatives": [
+        "dozen"
+      ],
+      "synonyms": [
+        "scores of",
+        "many"
+      ],
+      "antonyms": [
+        "few"
+      ],
+      "spellingDistractors": [
+        "dozen of",
+        "dozens",
+        "doznes of",
+        "dozens off"
+      ]
+    },
+    {
+      "word": "rather than",
+      "pos": "phr.",
+      "meaning": "~보다는, ~ 대신에",
+      "example": "We tend to remember the problems and the disputes rather than the pleasures of accomplishment.",
+      "blankAnswer": "rather than",
+      "derivatives": [
+        "rather",
+        "instead of"
+      ],
+      "synonyms": [
+        "instead of",
+        "in place of"
+      ],
+      "antonyms": [
+        "as well as"
+      ],
+      "spellingDistractors": [
+        "rather then",
+        "rathar than",
+        "ratherthan",
+        "rather thna"
       ]
     }
   ]
