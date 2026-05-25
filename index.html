@@ -90,6 +90,12 @@
       <input id="examCountInput" type="number" min="1" max="200" value="20" title="시험지 출력 문제 수" style="width:74px; padding:7px 8px; border-radius:10px; font-size:13px;">
       <span class="hint" style="margin-left:-4px;">문제</span>
       <button class="secondary small" id="examBtn">시험지TXT</button>
+      <span class="hint" style="margin-left:2px;">시간</span>
+      <input id="autoRevealSeconds" type="number" min="1" max="300" step="1" placeholder="초" title="자동 정답 확인 시간(초)" style="width:62px; padding:7px 8px; border-radius:10px; font-size:13px;">
+      <span class="hint" style="margin-left:-4px;">초</span>
+      <label class="hint" style="display:inline-flex; align-items:center; gap:4px;">
+        자동 넘김 <input id="autoRevealCheck" type="checkbox" title="설정한 시간 뒤 자동으로 정답 보기" style="width:auto; padding:0;">
+      </label>
     </div>
   </div>
 
@@ -228,11 +234,12 @@
   let order = [];
   let pos = 0;
   let showAnswer = false;
+  let autoRevealTimer = null;
 
   const $ = id => document.getElementById(id);
   const els = {
     appTitle:$('appTitle'), datasetSelect:$('datasetSelect'), modeSelect:$('modeSelect'),
-    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), examCountInput:$('examCountInput'),
+    shuffleBtn:$('shuffleBtn'), listBtn:$('listBtn'), examBtn:$('examBtn'), examCountInput:$('examCountInput'), autoRevealSeconds:$('autoRevealSeconds'), autoRevealCheck:$('autoRevealCheck'),
     numPill:$('numPill'), pagePill:$('pagePill'), priorityPill:$('priorityPill'),
     rightPill:$('rightPill'), wrongPill:$('wrongPill'), favPill:$('favPill'), excludePill:$('excludePill'), progressInner:$('progressInner'),
     questionText:$('questionText'), userAnswer:$('userAnswer'), showAnswerBtn:$('showAnswerBtn'),
@@ -505,6 +512,13 @@
         const savedExamCount = localStorage.getItem(APP_KEY + '_exam_count');
         els.examCountInput.value = savedExamCount || '20';
       }
+      if (els.autoRevealSeconds) {
+        const savedAutoSec = localStorage.getItem(APP_KEY + '_auto_reveal_seconds');
+        els.autoRevealSeconds.value = savedAutoSec || '';
+      }
+      if (els.autoRevealCheck) {
+        els.autoRevealCheck.checked = localStorage.getItem(APP_KEY + '_auto_reveal_on') === '1';
+      }
       const manifest = await fetchJson(MANIFEST_URL);
       const list = Array.isArray(manifest) ? manifest : (manifest.datasets || []);
       dataSets = [];
@@ -732,7 +746,42 @@
     return arr.slice().sort((a,b) => aiRecommendScore(b) - aiRecommendScore(a));
   }
 
+  function clearAutoRevealTimer() {
+    if (autoRevealTimer) {
+      clearTimeout(autoRevealTimer);
+      autoRevealTimer = null;
+    }
+  }
+
+  function getAutoRevealSeconds() {
+    const raw = els.autoRevealSeconds ? Number(els.autoRevealSeconds.value) : 0;
+    if (!Number.isFinite(raw) || raw <= 0) return 0;
+    return Math.max(1, Math.min(300, Math.floor(raw)));
+  }
+
+  function saveAutoRevealSettings() {
+    try {
+      if (els.autoRevealSeconds) localStorage.setItem(APP_KEY + '_auto_reveal_seconds', String(els.autoRevealSeconds.value || ''));
+      if (els.autoRevealCheck) localStorage.setItem(APP_KEY + '_auto_reveal_on', els.autoRevealCheck.checked ? '1' : '0');
+    } catch(e) {}
+  }
+
+  function startAutoRevealTimer() {
+    clearAutoRevealTimer();
+    if (!els.autoRevealCheck || !els.autoRevealCheck.checked) return;
+    const sec = getAutoRevealSeconds();
+    if (!sec) return;
+
+    autoRevealTimer = setTimeout(() => {
+      showAnswer = true;
+      els.answerBox.classList.add('show');
+      els.showAnswerBtn.textContent = '정답 숨기기';
+      autoRevealTimer = null;
+    }, sec * 1000);
+  }
+
   function render() {
+    clearAutoRevealTimer();
     if (!QUESTIONS.length) return;
 
     if (!order.length) {
@@ -781,6 +830,7 @@
     els.explainText.textContent = q.explanation || '';
     renderChips();
     renderSummary();
+    startAutoRevealTimer();
   }
 
   function renderChips() {
@@ -1058,6 +1108,18 @@
   });
   els.closeListBtn.addEventListener('click', () => els.listCard.classList.add('hidden'));
   els.searchInput.addEventListener('input', renderList);
+  if (els.autoRevealSeconds) els.autoRevealSeconds.addEventListener('change', () => {
+    const sec = getAutoRevealSeconds();
+    els.autoRevealSeconds.value = sec ? String(sec) : '';
+    saveAutoRevealSettings();
+    startAutoRevealTimer();
+  });
+  if (els.autoRevealCheck) els.autoRevealCheck.addEventListener('change', () => {
+    saveAutoRevealSettings();
+    if (els.autoRevealCheck.checked) startAutoRevealTimer();
+    else clearAutoRevealTimer();
+  });
+
   if (els.examCountInput) els.examCountInput.addEventListener('change', () => {
     const count = getExamCount();
     els.examCountInput.value = count;
@@ -1072,6 +1134,7 @@
     exportExamText();
   });
   els.showAnswerBtn.addEventListener('click', () => {
+    clearAutoRevealTimer();
     showAnswer = !showAnswer;
     els.answerBox.classList.toggle('show', showAnswer);
     els.showAnswerBtn.textContent = showAnswer ? '정답 숨기기' : '정답 보기';
