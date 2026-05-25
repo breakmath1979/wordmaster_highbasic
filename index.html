@@ -61,8 +61,8 @@
       </div>
       <div class="questionBox">
         <div class="qLabel" id="questionLabel">시작 전</div>
-        <div class="qText" id="questionText">10분 시작을 누르면 DAY 점수 보드와 연동해 문제가 나옵니다.</div>
-        <div class="hint" id="hintText">상단 점수 보드에서 점수가 낮은 번호를 누르면 그 단어 문제가 바로 나옵니다.</div>
+        <div class="qText" id="questionText">DAY 버튼을 고른 뒤 10분 시작을 누르면 그 DAY를 기준으로 스터디합니다.</div>
+        <div class="hint" id="hintText">메인 DAY 기준으로 과거 DAY는 복습, 다음 DAY는 예습으로 섞여 나옵니다.</div>
         <div class="spellGuide" id="spellingGuide" style="display:none"></div>
         <div class="choices" id="choiceArea"></div>
         <input id="answerInput" class="answerInput" style="display:none" autocomplete="off" placeholder="정답을 영어로 입력하세요">
@@ -146,7 +146,31 @@ function recordAnswer(q,correct){ensureDay(q.day);const p=state.progress.days[q.
 function checkAnswer(){const q=state.currentQuestion;if(!q)return;if(state.checked){nextQuestion();return}const user=q.input?el.answerInput.value:state.selectedAnswer;if(!user){showFeedback('info','정답을 먼저 입력하거나 보기를 선택하세요.');return}const correct=norm(user)===norm(q.answer);state.checked=true;recordAnswer(q,correct);if(!q.input)[...el.choiceArea.children].forEach(btn=>{const text=btn.textContent.replace(/[①②③④⑤▶]/g,'').trim();if(norm(text)===norm(q.answer))btn.classList.add('correct');else if(norm(text)===norm(user))btn.classList.add('wrong')});showFeedback(correct?'good':'bad',correct?'정답입니다. '+q.answer:'정답은 '+q.answer+' 입니다.');el.checkBtn.textContent='다음 문제';el.checkBtn.className='btnMain';speak(q.answer);updateUI()}
 function showFeedback(kind,text){el.feedback.className='feedback show '+kind;el.feedback.textContent=text}
 function nextQuestion(forceType=null,forceDay=null,forceItem=null){renderQuestion(buildQuestion(forceType,forceDay,forceItem))}
-function startSession(){if(state.sessionActive||!state.currentDay)return;state.elapsed=0;state.sessionActive=true;state.sessionStats={total:0,correct:0,spellingTotal:0,spellingCorrect:0,results:[]};el.startBtn.disabled=true;nextQuestion('blank',state.currentDay);state.timerId=setInterval(()=>{state.elapsed++;if(state.elapsed>=TOTAL_SECONDS)finishSession();else{if([20,170,380,500].includes(state.elapsed))nextQuestion();updateUI()}},1000);updateUI()}
+function startSession(){
+  if(state.sessionActive)return;
+  if(state.boardDay&&DAY_DATA[state.boardDay]){
+    state.currentDay=state.boardDay;
+    localStorage.setItem(STORAGE_KEY+'_currentDay',state.currentDay);
+  }
+  if(!state.currentDay)return;
+  ensureDay(state.currentDay);
+  state.boardDay=state.currentDay;
+  state.elapsed=0;
+  state.sessionActive=true;
+  state.sessionStats={total:0,correct:0,spellingTotal:0,spellingCorrect:0,results:[]};
+  el.startBtn.disabled=true;
+  renderSide();
+  updateUI();
+  nextQuestion('blank',state.currentDay);
+  state.timerId=setInterval(()=>{
+    state.elapsed++;
+    if(state.elapsed>=TOTAL_SECONDS)finishSession();
+    else{
+      if([20,170,380,500].includes(state.elapsed))nextQuestion();
+      updateUI();
+    }
+  },1000);
+}
 function finishSession(){clearInterval(state.timerId);state.timerId=null;state.sessionActive=false;state.elapsed=TOTAL_SECONDS;el.startBtn.disabled=false;ensureDay(state.currentDay);state.progress.days[state.currentDay].sessions.push({...state.sessionStats,finishedAt:new Date().toISOString()});saveProgress();exportPromptHint();updateUI()}
 function exportPromptHint(){showFeedback('info','10분 완료! 필요한 경우 아래의 틀린문제 시험지 TXT 출력 버튼을 누르세요.')}
 function renderScoreTabs(){
@@ -159,7 +183,18 @@ function renderScoreTabs(){
     b.className='scoreTab '+(day===state.boardDay?'active':'')+(role==='복습'?' review':(role==='예습'?' preview':''));
     b.textContent=day.replace('DAY','DAY ')+' '+role;
     b.title=role==='메인'?'현재 메인 DAY':(role==='복습'?'이미 배운 복습 DAY 점수 보기':'앞으로 배울 예습 DAY 점수 보기');
-    b.onclick=()=>{state.boardDay=day;renderScoreBoard()};
+    b.onclick=()=>{
+      state.boardDay=day;
+      if(!state.sessionActive){
+        state.currentDay=day;
+        localStorage.setItem(STORAGE_KEY+'_currentDay',state.currentDay);
+        ensureDay(day);
+        renderSide();
+        updateUI();
+      }else{
+        renderScoreBoard();
+      }
+    };
     el.scoreDayTabs.appendChild(b);
   });
 }
